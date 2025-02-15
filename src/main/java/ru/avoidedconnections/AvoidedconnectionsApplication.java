@@ -4,10 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AvoidedconnectionsApplication {
-
+public class AvoidedConnectionsApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(AvoidedconnectionsApplication.class, args);
+		SpringApplication.run(AvoidedConnectionsApplication.class, args);
 	}
 
 }
