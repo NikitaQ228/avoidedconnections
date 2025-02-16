@@ -17,6 +17,9 @@ public class Story {
     @Column(name = "head", length = 30)
     private String head;
 
+    @Column(name = "img")
+    private String img;
+
     @Column(name = "text", columnDefinition = "TEXT")
     private String text;
 
