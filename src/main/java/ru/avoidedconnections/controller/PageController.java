@@ -20,9 +20,9 @@ public class PageController {
         return "profile.html";
     }
 
-    @GetMapping("/history")
-    public String getHistoryPage() {
-        return "history.html";
+    @GetMapping("/story")
+    public String getStoryPage() {
+        return "Story.html";
     }
 
     @GetMapping("/addHistory")
