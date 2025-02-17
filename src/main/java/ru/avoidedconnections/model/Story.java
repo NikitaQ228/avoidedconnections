@@ -32,7 +32,7 @@ public class Story {
     @Column(name = "category")
     private String category;
 
-    @OneToOne //todo OneToMany?
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User author;
 

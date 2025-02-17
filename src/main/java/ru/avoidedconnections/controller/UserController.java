@@ -1,5 +1,6 @@
 package ru.avoidedconnections.controller;
 
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,6 @@ public class UserController {
         return null;
     }
 
-    //todo авторизация
+    //todo аунтификация
 
 }
