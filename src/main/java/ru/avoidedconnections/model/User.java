@@ -19,6 +19,9 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "icon")
+    private String icon;
+
     @Column(name = "password")
     private String password;
 
@@ -29,7 +32,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "story_id"))
     private Set<Story> stories  = new HashSet<>();
 
-    public User(Long id, String name, String email, String password, Set stories) {
+    public User(Long id, String name, String email, String password, Set<Story> stories) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -76,7 +79,7 @@ public class User {
         this.password = password;
     }
 
-    public void setStories(Set stories) {
+    public void setStories(Set<Story> stories) {
         this.stories = stories;
     }
 }

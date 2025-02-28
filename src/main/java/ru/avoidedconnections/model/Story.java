@@ -29,9 +29,6 @@ public class Story {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "category")
-    private String category;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User author;
@@ -39,13 +36,12 @@ public class Story {
     @ManyToMany(mappedBy = "stories")
     private Set<User> usersTag  = new HashSet<>();
 
-    public Story(Long id, String head, String text, Date date, String city, String category, User author, Set<User> usersTag) {
+    public Story(Long id, String head, String text, Date date, String city, User author, Set<User> usersTag) {
         this.id = id;
         this.head = head;
         this.text = text;
         this.date = date;
         this.city = city;
-        this.category = category;
         this.author = author;
         this.usersTag = usersTag;
     }
@@ -67,10 +63,6 @@ public class Story {
 
     public String getCity() {
         return city;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     public User getAuthor() {
@@ -99,10 +91,6 @@ public class Story {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public void setAuthor(User author) {

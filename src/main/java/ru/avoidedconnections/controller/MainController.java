@@ -13,9 +13,8 @@ import java.util.List;
 public class MainController {
 
     @GetMapping("/mainInfo")
-    public Pair<String, List<Story>> mainInfoPage(@RequestParam(required = false) String category,
-                                                  @RequestParam(required = false) String city,
-                                                  @RequestParam(required = false) String query) {
+    public List<Story> mainInfoPage(@RequestParam(required = false) String city,
+                                    @RequestParam(required = false) String query) {
         return null;
     }
 

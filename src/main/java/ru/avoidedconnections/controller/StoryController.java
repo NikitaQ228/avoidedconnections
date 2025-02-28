@@ -11,7 +11,20 @@ import java.util.List;
 @RequestMapping("/story")
 public class StoryController {
     @GetMapping("/{storyId}")
-    public Pair<Story, List<Comment>> storyPage(@PathVariable(name = "storyId") Long storyId) {
+    public Story storyPage(@PathVariable(name = "storyId") Long storyId) {
         return null;
     }
+
+    @GetMapping("/{storyId}/comment")
+    public List<Comment> storyComment(@PathVariable(name = "storyId") Long storyId) {
+        return null;
+    }
+
+    @PostMapping("/{storyId}/addComment")
+    public void storyAddComment(@PathVariable Long storyId,
+                                @RequestBody String commentText) {
+
+    }
+
+    //todo удаление статьи?
 }

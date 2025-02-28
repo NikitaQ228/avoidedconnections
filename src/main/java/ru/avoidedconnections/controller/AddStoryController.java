@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.avoidedconnections.model.Story;
 
 @RestController
-@RequestMapping("/addHistory")
-public class AddHistoryController {
+@RequestMapping("/addStory")
+public class AddStoryController {
 
     @PostMapping("/new")
     public void createStory(@RequestBody Story story) {
 
     }
+
+    //todo получение пользователя по почте? Как будет происходить тегирование?
 
 }
