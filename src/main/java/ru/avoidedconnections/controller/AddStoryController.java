@@ -1,10 +1,8 @@
 package ru.avoidedconnections.controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.avoidedconnections.model.Story;
+import ru.avoidedconnections.model.User;
 
 @RestController
 @RequestMapping("/addStory")
@@ -15,6 +13,10 @@ public class AddStoryController {
 
     }
 
-    //todo получение пользователя по почте? Как будет происходить тегирование?
+    @GetMapping("/userTag")
+    public User addUserTag(@RequestBody String login) {
+        return null;
+    }
+    //todo получение пользователя по логину? Как будет происходить тегирование?
 
 }

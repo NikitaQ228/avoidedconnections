@@ -26,5 +26,8 @@ public class StoryController {
 
     }
 
-    //todo удаление статьи?
+    @DeleteMapping("/{storyId}/delete")
+    public void storyDelete(@PathVariable(name = "storyId") Long storyId) {
+
+    }
 }

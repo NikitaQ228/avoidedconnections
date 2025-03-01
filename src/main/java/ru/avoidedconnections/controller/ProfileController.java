@@ -22,7 +22,7 @@ public class ProfileController {
     }
 
     @GetMapping("/info")
-    public Pair<User, List<Story>> profileMyUser() {
+    public User profileMyUser() {
         return null;
     }
 
