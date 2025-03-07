@@ -1,6 +1,8 @@
 package ru.avoidedconnections.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.avoidedconnections.dto.StoryRequest;
 import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.model.User;
 
@@ -9,14 +11,8 @@ import ru.avoidedconnections.model.User;
 public class AddStoryController {
 
     @PostMapping("/new")
-    public void createStory(@RequestBody Story story) {
-
-    }
-
-    @GetMapping("/userTag")
-    public User addUserTag(@RequestBody String login) {
+    public ResponseEntity<String> createStory(@RequestBody StoryRequest storyRequest) {
         return null;
     }
-    //todo получение пользователя по логину? Как будет происходить тегирование?
 
 }

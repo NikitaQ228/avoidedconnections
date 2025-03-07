@@ -28,8 +28,8 @@ public class PageController {
         return null;
     }
 
-    @GetMapping("/addHistory")
-    public String getAddHistoryPage() {
+    @GetMapping("/addStory")
+    public String getAddStoryPage() {
         return null;
     }
 
