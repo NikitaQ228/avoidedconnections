@@ -13,11 +13,8 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "name", length = 10)
+    @Column(name = "name", unique = true)
     private String name;
-
-    @Column(name = "login", unique = true)
-    private String login;
 
     @Column(name = "icon")
     private String icon;
@@ -35,7 +32,6 @@ public class User {
     public User(Long id, String name, String email, String password, Set<Story> stories) {
         this.id = id;
         this.name = name;
-        this.login = email;
         this.password = password;
         this.stories = stories;
     }
@@ -51,8 +47,8 @@ public class User {
         return name;
     }
 
-    public String getEmail() {
-        return login;
+    public String getIcon() {
+        return icon;
     }
 
     public String getPassword() {
@@ -71,8 +67,8 @@ public class User {
         this.name = name;
     }
 
-    public void setEmail(String email) {
-        this.login = email;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public void setPassword(String password) {
