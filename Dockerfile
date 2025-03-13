@@ -12,7 +12,6 @@ WORKDIR /app
 # Копируем файлы исходного кода и pom.xml
 COPY src ./src
 COPY mvnw pom.xml ./
-COPY init.sql /docker-entrypoint-initdb.d/
 # Собираем приложение
 RUN mvn clean install -DskipTests
 
