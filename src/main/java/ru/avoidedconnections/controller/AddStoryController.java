@@ -7,7 +7,7 @@ import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.model.User;
 
 @RestController
-@RequestMapping("/addStory")
+@RequestMapping("/api/addStory")
 public class AddStoryController {
 
     @PostMapping("/new")

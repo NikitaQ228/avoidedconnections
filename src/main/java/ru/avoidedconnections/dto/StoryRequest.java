@@ -9,5 +9,5 @@ public class StoryRequest {
     private Date date;
     private String city;
     private String img;
-    private Set<String> usersTagLogin;
+    private Set<String> usersTagName;
 }

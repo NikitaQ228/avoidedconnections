@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class UserResponse {
     private String name;
-    private String login;
     private String icon;
     private Set<Story> stories;
     private List<Story> mysStories;

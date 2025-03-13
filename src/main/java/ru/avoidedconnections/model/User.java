@@ -1,10 +1,12 @@
 package ru.avoidedconnections.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -29,53 +31,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "story_id"))
     private Set<Story> stories  = new HashSet<>();
 
-    public User(Long id, String name, String email, String password, Set<Story> stories) {
-        this.id = id;
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
-        this.stories = stories;
     }
 
-    public User() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Set getStories() {
-        return stories;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setStories(Set<Story> stories) {
-        this.stories = stories;
-    }
 }
