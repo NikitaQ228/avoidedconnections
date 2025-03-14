@@ -8,7 +8,7 @@ import ru.avoidedconnections.model.Story;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/story")
+@RequestMapping("/story")
 public class StoryController {
     @GetMapping("/{storyId}")
     public Story storyPage(@PathVariable(name = "storyId") Long storyId) {

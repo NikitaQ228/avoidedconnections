@@ -9,7 +9,7 @@ import ru.avoidedconnections.model.User;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/profile")
+@RequestMapping("/profile")
 public class ProfileController {
 
     @GetMapping("/info/{userId}")
