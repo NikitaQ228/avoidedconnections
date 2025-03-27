@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/story")
 public class StoryController {
     @GetMapping("/{storyId}")
-    public Story storyPage(@PathVariable(name = "storyId") Long storyId) {
+    public Story storyInfo(@PathVariable(name = "storyId") Long storyId) {
         return null;
     }
 

@@ -29,14 +29,14 @@ public class Story {
     @Column(name = "text", columnDefinition = "TEXT")
     private String text;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     private Date date;
 
     @Column(name = "city")
     private String city;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
     @ManyToMany(mappedBy = "stories")
