@@ -23,8 +23,6 @@ public class DatabaseInitializationService {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private UserService userService;
-    @Autowired
-    ResourceLoader resourceLoader;
 
     @PostConstruct
     public void initDatabase() throws IOException {
@@ -42,7 +40,7 @@ public class DatabaseInitializationService {
         ClassPathResource classPathResource = new ClassPathResource("script.sql");
         try {
             byte[] binaryData = FileCopyUtils.copyToByteArray(classPathResource.getInputStream());
-            strSQL = new String(binaryData, "Windows-1251");
+            strSQL = new String(binaryData, StandardCharsets.UTF_8);
             jdbcTemplate.execute(strSQL);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,13 +1,17 @@
 package ru.avoidedconnections.dto;
 
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.avoidedconnections.model.Story;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
+@NoArgsConstructor
 public class StoryDTO {
     private Long id;
     private String head;
@@ -26,10 +30,12 @@ public class StoryDTO {
         this.date = story.getDate();
         this.city = story.getCity();
         this.author = new UserDTO(story.getAuthor());
-        this.usersTag = Collections.unmodifiableList(
-                story.getUsersTag().stream()
-                        .map(UserDTO::new)
-                        .collect(Collectors.toList())
-        );
+        if (story.getUsersTag() != null) {
+            this.usersTag = Collections.unmodifiableList(
+                    story.getUsersTag().stream()
+                            .map(UserDTO::new)
+                            .collect(Collectors.toList())
+            );
+        }
     }
 }

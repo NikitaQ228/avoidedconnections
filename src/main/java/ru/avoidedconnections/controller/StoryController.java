@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.avoidedconnections.dto.CommentDTO;
 import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.model.Comment;
+import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.services.CommentService;
 import ru.avoidedconnections.services.StoryService;
 import ru.avoidedconnections.repository.StoryRepository;
@@ -12,7 +13,7 @@ import ru.avoidedconnections.repository.StoryRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/story")
+@RequestMapping("/api/story")
 public class StoryController {
     @Autowired
     private StoryService storyService;

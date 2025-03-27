@@ -3,6 +3,7 @@ package ru.avoidedconnections.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.avoidedconnections.dto.UserDTO;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.UserRepository;
 
@@ -22,4 +23,15 @@ public class UserService {
         return true;
     }
 
+    public User getUserByName(String name) {
+        return repository
+                .findByName(name)
+                .orElseThrow(
+                        () -> new RuntimeException("User not found with name: " + name)
+                );
+    }
+
+    public User getUserByDTO(UserDTO userDTO) {
+        return getUserByName(userDTO.getName());
+    }
 }

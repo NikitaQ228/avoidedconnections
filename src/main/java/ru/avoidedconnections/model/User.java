@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.avoidedconnections.dto.UserDTO;
 
 import java.util.HashSet;
 import java.util.List;
@@ -29,19 +30,16 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "users_tag",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "story_id"))
+    @ManyToMany(mappedBy = "usersTag", fetch = FetchType.LAZY)
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "users_tag",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "story_id"))
     private List<Story> stories;
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
-    }
-
-    public User() {
-
     }
 }
