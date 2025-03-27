@@ -1,30 +1,31 @@
 package ru.avoidedconnections.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
-import ru.avoidedconnections.dto.StoryResponse;
+import ru.avoidedconnections.dto.CommentDTO;
+import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.model.Comment;
-import ru.avoidedconnections.model.Story;
+import ru.avoidedconnections.services.CommentService;
 import ru.avoidedconnections.services.StoryService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/story")
 public class StoryController {
     @Autowired
     private StoryService storyService;
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/{storyId}")
-    public StoryResponse storyInfo(@PathVariable(name = "storyId") Long storyId) {
+    public StoryDTO getStoryInfo(@PathVariable(name = "storyId") Long storyId) {
         return storyService.getStoryById(storyId);
     }
 
     @GetMapping("/{storyId}/comment")
-    public List<Comment> storyComment(@PathVariable(name = "storyId") Long storyId) {
-        return null;
+    public List<CommentDTO> getStoryComment(@PathVariable(name = "storyId") Long storyId) {
+        return commentService.getCommentsByStoryId(storyId);
     }
 
     @PostMapping("/{storyId}/addComment")

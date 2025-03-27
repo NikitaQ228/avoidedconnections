@@ -1,24 +1,19 @@
 package ru.avoidedconnections.controller;
 
-import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
-import ru.avoidedconnections.dto.UserResponse;
-import ru.avoidedconnections.model.Story;
-import ru.avoidedconnections.model.User;
-
-import java.util.List;
+import ru.avoidedconnections.dto.UserDTO;
 
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
 
     @GetMapping("/info/{userId}")
-    public UserResponse profileInfoUser(@PathVariable(name = "userId") Long userId) {
+    public UserDTO profileInfoUser(@PathVariable(name = "userId") Long userId) {
         return null;
     }
 
     @GetMapping("/info")
-    public UserResponse profileMyUser() {
+    public UserDTO profileMyUser() {
         return null;
     }
 
