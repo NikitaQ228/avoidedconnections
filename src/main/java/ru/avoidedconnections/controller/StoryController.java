@@ -24,7 +24,7 @@ public class StoryController {
     }
 
     @GetMapping("/{storyId}/comment")
-    public List<CommentDTO> getStoryComment(@PathVariable(name = "storyId") Long storyId) {
+    public List<CommentDTO> getStoryComments(@PathVariable(name = "storyId") Long storyId) {
         return commentService.getCommentsByStoryId(storyId);
     }
 
