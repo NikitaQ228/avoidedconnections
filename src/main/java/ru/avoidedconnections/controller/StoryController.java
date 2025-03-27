@@ -1,16 +1,23 @@
 package ru.avoidedconnections.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
+import ru.avoidedconnections.dto.StoryResponse;
 import ru.avoidedconnections.model.Comment;
 import ru.avoidedconnections.model.Story;
+import ru.avoidedconnections.services.StoryService;
 import ru.avoidedconnections.repository.StoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/story")
+@RequestMapping("/story")
 public class StoryController {
+    @Autowired
+    private StoryService storyService;
+
     private final StoryRepository storyRepository;
 
     public StoryController(StoryRepository storyRepository) {
@@ -18,8 +25,8 @@ public class StoryController {
     }
 
     @GetMapping("/{storyId}")
-    public Story storyPage(@PathVariable(name = "storyId") Long storyId) {
-        return null;
+    public StoryResponse storyInfo(@PathVariable(name = "storyId") Long storyId) {
+        return storyService.getStoryById(storyId);
     }
 
     @GetMapping("/{storyId}/comment")
