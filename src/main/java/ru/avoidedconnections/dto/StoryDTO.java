@@ -8,27 +8,27 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
-public class StoryResponse {
+public class StoryDTO {
     private Long id;
     private String head;
     private String img;
     private String text;
     private Date date;
     private String city;
-    private UserResponse author;
-    private List<UserResponse> usersTag;
+    private UserDTO author;
+    private List<UserDTO> usersTag;
 
-    public StoryResponse(Story story) {
+    public StoryDTO(Story story) {
         this.id = story.getId();
         this.head = story.getHead();
         this.img = story.getImg();
         this.text = story.getText();
         this.date = story.getDate();
         this.city = story.getCity();
-        this.author = new UserResponse(story.getAuthor());
+        this.author = new UserDTO(story.getAuthor());
         this.usersTag = Collections.unmodifiableList(
                 story.getUsersTag().stream()
-                        .map(UserResponse::new)
+                        .map(UserDTO::new)
                         .collect(Collectors.toList())
         );
     }
