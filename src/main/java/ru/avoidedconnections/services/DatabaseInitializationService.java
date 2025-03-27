@@ -2,8 +2,10 @@ package ru.avoidedconnections.services;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ResourceUtils;
 import ru.avoidedconnections.model.User;
 
@@ -19,7 +21,7 @@ public class DatabaseInitializationService {
     private UserService userService;
 
     @PostConstruct
-    public void initDatabase() {
+    public void initDatabase() throws IOException {
         if (!userService.addUser(new User("user1", "pass1")))
             return;
         userService.addUser(new User("user2", "pass2"));
@@ -29,11 +31,13 @@ public class DatabaseInitializationService {
         executeSqlScript("script.sql");
     }
 
-    private void executeSqlScript(String fileName) {
+    private void executeSqlScript(String fileName) throws IOException {
+        String strSQL = null;
+        ClassPathResource classPathResource = new ClassPathResource("script.sql");
         try {
-            File file = ResourceUtils.getFile("classpath:" + fileName);
-            String sql = new String(Files.readAllBytes(file.toPath()));
-            jdbcTemplate.execute(sql);
+            byte[] binaryData = FileCopyUtils.copyToByteArray(classPathResource.getInputStream());
+            strSQL = new String(binaryData, "Windows-1251");
+            jdbcTemplate.execute(strSQL);
         } catch (IOException e) {
             e.printStackTrace();
         }
