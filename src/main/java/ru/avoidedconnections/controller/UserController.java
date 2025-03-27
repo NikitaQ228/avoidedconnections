@@ -9,7 +9,7 @@ import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.services.UserService;
 
 @RestController
-@RequestMapping("/api/entry")
+@RequestMapping("/login")
 public class UserController {
     @Autowired
     private UserService userService;

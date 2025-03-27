@@ -10,7 +10,6 @@ import ru.avoidedconnections.model.Story;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class MainController {
 
     @GetMapping("/mainInfo")

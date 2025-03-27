@@ -35,25 +35,14 @@ public class DatabaseInitializationService {
         userService.addUser(new User("user4", "pass4"));
         userService.addUser(new User("user5", "pass5"));
         executeSqlScript("script.sql");
-
-
     }
 
     private void executeSqlScript(String fileName) throws IOException {
-
-//        try {
-////            File file = ResourceUtils.getFile("classpath:" + fileName);
-//            var file = resource.getFile();
-//            String sql = new String(Files.readAllBytes(file.toPath()));
-//            jdbcTemplate.execute(sql);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         String strSQL = null;
         ClassPathResource classPathResource = new ClassPathResource("script.sql");
         try {
             byte[] binaryData = FileCopyUtils.copyToByteArray(classPathResource.getInputStream());
-            strSQL = new String(binaryData, StandardCharsets.UTF_16);
+            strSQL = new String(binaryData, "Windows-1251");
             jdbcTemplate.execute(strSQL);
         } catch (IOException e) {
             e.printStackTrace();

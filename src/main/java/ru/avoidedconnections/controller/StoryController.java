@@ -9,7 +9,7 @@ import ru.avoidedconnections.repository.StoryRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stories")
+@RequestMapping("/api/story")
 public class StoryController {
     private final StoryRepository storyRepository;
 

@@ -1,23 +1,18 @@
 package ru.avoidedconnections.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api")
 public class PageController {
-    @GetMapping("/")
+    @GetMapping
     public String getMainPage() {
-        return null;
+        return "main.html";
     }
 
-    @GetMapping("/entry")
-    public String getEntryPage() {
-        return null;
+    @GetMapping("/login")
+    public String getLoginPage() {
+        return "login.html";
     }
 
     @GetMapping("/profile")
