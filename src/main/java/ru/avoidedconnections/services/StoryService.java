@@ -2,16 +2,23 @@ package ru.avoidedconnections.services;
 
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.multipart.MultipartFile;
 import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.StoryRepository;
 import ru.avoidedconnections.repository.UserRepository;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +32,9 @@ public class StoryService {
     private final StoryRepository storyRepository;
     private final UserService userService;
     private final UserRepository userRepository;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     public StoryService(StoryRepository storyRepository, UserService userService, UserRepository userRepository) {
         this.storyRepository = storyRepository;
@@ -106,5 +116,19 @@ public class StoryService {
                         .map(StoryDTO::new)
                         .collect(Collectors.toList())
         );
+    }
+
+    public ResponseEntity<String> uploadImage(MultipartFile image) {
+        try {
+            if (image.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The file is empty");
+            }
+
+            Path path = Paths.get(uploadPath + image.getOriginalFilename());
+            Files.write(path, image.getBytes());
+            return ResponseEntity.ok(image.getOriginalFilename());
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error when uploading a file: " + e.getMessage());
+        }
     }
 }
