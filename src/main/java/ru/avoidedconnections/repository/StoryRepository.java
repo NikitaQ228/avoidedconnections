@@ -22,6 +22,10 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
     @Query("SELECT s FROM Story s WHERE s.city = :city ORDER BY s.date DESC")
     List<Story> findStoriesByCity(@Param("city") String city);
 
+    @Query("SELECT s FROM Story s WHERE (:query IS NULL OR (LOWER(s.head) LIKE LOWER(CONCAT('%', :query, '%'))"
+            + "OR LOWER(s.text) LIKE LOWER(CONCAT('%', :query, '%')))) ORDER BY s.date DESC")
+    List<Story> findStoriesByQuery(@Param("query") String query);
+
     @Query("SELECT s FROM Story s ORDER BY s.date DESC")
     List<Story> findAllStoriesSortedByDate();
 

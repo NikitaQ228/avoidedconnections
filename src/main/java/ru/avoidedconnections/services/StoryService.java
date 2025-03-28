@@ -56,7 +56,11 @@ public class StoryService {
 
     public List<StoryDTO> getStoryByQuery(String city, String query) {
         if (city == null) {
-            return storyRepository.findAllStoriesSortedByDate().stream().map(StoryDTO::new).collect(Collectors.toList());
+            if (query == null) {
+                return storyRepository.findAllStoriesSortedByDate().stream().map(StoryDTO::new).collect(Collectors.toList());
+            } else {
+                return storyRepository.findStoriesByQuery(query).stream().map(StoryDTO::new).collect(Collectors.toList());
+            }
         } else {
             if (query == null) {
                 return storyRepository.findStoriesByCity(city).stream().map(StoryDTO::new).collect(Collectors.toList());
