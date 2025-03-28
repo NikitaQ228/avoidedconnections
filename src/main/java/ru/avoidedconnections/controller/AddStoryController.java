@@ -10,8 +10,11 @@ import ru.avoidedconnections.services.StoryService;
 @RestController
 @RequestMapping("/addStory")
 public class AddStoryController {
-    @Autowired
-    StoryService storyService;
+    private final StoryService storyService;
+
+    public AddStoryController(StoryService storyService) {
+        this.storyService = storyService;
+    }
 
     @PostMapping("/new")
     public ResponseEntity<StoryDTO> createStory(@RequestBody StoryDTO storyDTO) {

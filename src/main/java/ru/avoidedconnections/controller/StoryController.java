@@ -1,34 +1,32 @@
 package ru.avoidedconnections.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.avoidedconnections.dto.CommentDTO;
 import ru.avoidedconnections.dto.StoryDTO;
-import ru.avoidedconnections.model.Comment;
-import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.services.CommentService;
 import ru.avoidedconnections.services.StoryService;
-import ru.avoidedconnections.repository.StoryRepository;
+import ru.avoidedconnections.services.UserService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/story")
+@RequestMapping("/story")
 public class StoryController {
-    @Autowired
-    private StoryService storyService;
-    @Autowired
-    private CommentService commentService;
+    private final StoryService storyService;
+    private final CommentService commentService;
+    private final UserService userService;
 
-    private final StoryRepository storyRepository;
-
-    public StoryController(StoryRepository storyRepository) {
-        this.storyRepository = storyRepository;
+    public StoryController(StoryService storyService, CommentService commentService, UserService userService) {
+        this.storyService = storyService;
+        this.commentService = commentService;
+        this.userService = userService;
     }
 
     @GetMapping("/{storyId}")
     public StoryDTO getStoryInfo(@PathVariable(name = "storyId") Long storyId) {
-        return storyService.getStoryById(storyId);
+        return new StoryDTO(storyService.getStoryById(storyId));
     }
 
     @GetMapping("/{storyId}/comment")
@@ -37,19 +35,14 @@ public class StoryController {
     }
 
     @PostMapping("/{storyId}/addComment")
-    public void storyAddComment(@PathVariable Long storyId,
+    public ResponseEntity<CommentDTO> storyAddComment(@PathVariable Long storyId,
                                 @RequestBody String commentText) {
-
+        var savedComment = commentService.saveComment(commentText, storyId);
+        return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{storyId}/delete")
     public void storyDelete(@PathVariable(name = "storyId") Long storyId) {
-
-    }
-
-    // Добавлено для теста
-    @GetMapping
-    public List<Story> getAll() {
-        return storyRepository.findAll();
+        storyService.deleteStory(storyId);
     }
 }

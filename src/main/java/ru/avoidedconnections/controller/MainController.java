@@ -9,30 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.repository.StoryRepository;
+import ru.avoidedconnections.services.StoryService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 public class MainController {
-    private final StoryRepository storyRepository;
+    private final StoryService storyService;
 
-    public MainController(StoryRepository storyRepository) {
-        this.storyRepository = storyRepository;
+    public MainController(StoryService storyService) {
+        this.storyService = storyService;
     }
 
     @GetMapping("/mainInfo")
     public List<StoryDTO> mainInfoPage(@RequestParam(required = false) String city,
                                        @RequestParam(required = false) String query) {
-        if (city == null) {
-            return storyRepository.findAllStoriesSortedByDate().stream().map(StoryDTO::new).collect(Collectors.toList());
-        } else {
-            if (query == null) {
-                return storyRepository.findStoriesByCity(city).stream().map(StoryDTO::new).collect(Collectors.toList());
-            } else {
-                return storyRepository.searchStories(city, query).stream().map(StoryDTO::new).collect(Collectors.toList());
-            }
-        }
+        return storyService.getStoryByQuery(city, query);
     }
 
 }

@@ -1,14 +1,19 @@
 package ru.avoidedconnections.services;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import ru.avoidedconnections.dto.UserDTO;
 import ru.avoidedconnections.config.MyUserDetails;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.UserRepository;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -33,7 +38,7 @@ public class UserService {
         return userRepository
                 .findByName(name)
                 .orElseThrow(
-                        () -> new RuntimeException("User not found with name: " + name)
+                        () -> new ObjectNotFoundException(Optional.ofNullable(name), "User not found with name: ")
                 );
     }
 

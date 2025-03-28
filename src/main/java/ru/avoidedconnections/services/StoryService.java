@@ -2,12 +2,15 @@ package ru.avoidedconnections.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.StoryRepository;
 import ru.avoidedconnections.repository.UserRepository;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Collections;
@@ -26,25 +29,41 @@ public class StoryService {
         this.userRepository = userRepository;
     }
 
-    public StoryDTO addStory(StoryDTO storyDTO) {
+    public void deleteStory(Long storyId) {
+        storyRepository.deleteById(storyId);
+    }
+
+    public StoryDTO addStory(StoryDTO storyDTO)  {
         Story story = new Story(
                 storyDTO.getId(),
                 storyDTO.getHead(),
                 storyDTO.getImg(),
                 storyDTO.getText(),
-                storyDTO.getDate(),
+                new Date(),
                 storyDTO.getCity(),
-                userService.getUserByDTO(storyDTO.getAuthor()),
+                userService.getCurrentUser(),
                 storyDTO.getUsersTag().stream().map(x -> userService.getUserByName(x.getName())).collect(Collectors.toList())
         );
         storyRepository.save(story);
         return new StoryDTO(story);
     }
 
-    public StoryDTO getStoryById(Long id) {
-        return storyRepository.findById(id).map(StoryDTO::new).orElseThrow(
+    public Story getStoryById(Long id) {
+        return storyRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Story not found with id: " + id)
         );
+    }
+
+    public List<StoryDTO> getStoryByQuery(String city, String query) {
+        if (city == null) {
+            return storyRepository.findAllStoriesSortedByDate().stream().map(StoryDTO::new).collect(Collectors.toList());
+        } else {
+            if (query == null) {
+                return storyRepository.findStoriesByCity(city).stream().map(StoryDTO::new).collect(Collectors.toList());
+            } else {
+                return storyRepository.searchStories(city, query).stream().map(StoryDTO::new).collect(Collectors.toList());
+            }
+        }
     }
 
     public List<StoryDTO> getListStoryByAuthor(Long id) {

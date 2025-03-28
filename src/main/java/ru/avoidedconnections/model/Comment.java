@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.avoidedconnections.dto.StoryDTO;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -32,4 +34,10 @@ public class Comment {
     @Column(name = "text", columnDefinition = "TEXT")
     private String text;
 
+    public Comment(User writer, Story storyObj, Date now, String commentText) {
+        this.writer = writer;
+        this.story = storyObj;
+        this.date = now;
+        this.text = commentText;
+    }
 }

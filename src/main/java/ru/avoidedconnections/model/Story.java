@@ -10,14 +10,10 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 import ru.avoidedconnections.dto.StoryDTO;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
-@Builder
 @Table(name = "story")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,22 +42,21 @@ public class Story {
     private User author;
 
 //    @ManyToMany(mappedBy = "stories", fetch = FetchType.LAZY)
-    @Builder.Default
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_tag",  // Имя связующей таблицы
             joinColumns = @JoinColumn(name = "story_id"),  // Внешний ключ для Story
             inverseJoinColumns = @JoinColumn(name = "user_id")  // Внешний ключ для User
     )
-    private List<User> usersTag = new ArrayList<>();
+    private List<User> usersTag;
 
-    public Story(Long id, String head, String img, String text, Date date, String city, User author) {
-        this.id = id;
-        this.head = head;
-        this.img = img;
-        this.text = text;
-        this.date = date;
-        this.city = city;
-        this.author = author;
-    }
+//    public Story(Long id, String head, String img, String text, Date date, String city, User author) {
+//        this.id = id;
+//        this.head = head;
+//        this.img = img;
+//        this.text = text;
+//        this.date = date;
+//        this.city = city;
+//        this.author = author;
+//    }
 }
