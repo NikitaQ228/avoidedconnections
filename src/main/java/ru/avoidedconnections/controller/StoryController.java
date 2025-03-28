@@ -42,7 +42,7 @@ public class StoryController {
     }
 
     @DeleteMapping("/{storyId}/delete")
-    public void storyDelete(@PathVariable(name = "storyId") Long storyId) {
-        storyService.deleteStory(storyId);
+    public StoryDTO storyDelete(@PathVariable(name = "storyId") Long storyId) {
+        return storyService.deleteStory(storyId);
     }
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import ru.avoidedconnections.dto.StoryDTO;
 
 import java.time.LocalDate;
@@ -26,6 +28,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "story_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Story story;
 
     @Column(name = "date", nullable = false)

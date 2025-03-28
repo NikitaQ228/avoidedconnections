@@ -1,6 +1,9 @@
 package ru.avoidedconnections.services;
 
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import ru.avoidedconnections.dto.StoryDTO;
@@ -29,8 +32,11 @@ public class StoryService {
         this.userRepository = userRepository;
     }
 
-    public void deleteStory(Long storyId) {
+    public StoryDTO deleteStory(Long storyId) {
+        var storyDTO = storyRepository.findById(storyId).map(StoryDTO::new).orElseThrow(() -> new
+                ObjectNotFoundException(storyId, "История "));
         storyRepository.deleteById(storyId);
+        return storyDTO;
     }
 
     public StoryDTO addStory(StoryDTO storyDTO)  {
