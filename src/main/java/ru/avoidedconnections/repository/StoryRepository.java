@@ -24,4 +24,6 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
 
     @Query("SELECT s FROM Story s ORDER BY s.date DESC")
     List<Story> findAllStoriesSortedByDate();
+
+    List<Story> findByAuthorId(Long authorId);
 }

@@ -10,7 +10,10 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 import ru.avoidedconnections.dto.StoryDTO;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity

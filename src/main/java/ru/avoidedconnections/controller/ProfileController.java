@@ -1,40 +1,57 @@
 package ru.avoidedconnections.controller;
 
-import jakarta.servlet.http.HttpSession;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.dto.UserDTO;
-import ru.avoidedconnections.repository.UserRepository;
+import ru.avoidedconnections.services.StoryService;
+import ru.avoidedconnections.services.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
-    private final UserRepository userRepository;
+    public final UserService userService;
+    public final StoryService storyService;
 
-    public ProfileController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ProfileController(UserService userService, StoryService storyService) {
+        this.userService = userService;
+        this.storyService = storyService;
     }
 
-    @GetMapping("/info/{userId}")
+    @GetMapping("/user/{userId}")
     public UserDTO profileInfoUser(@PathVariable(name = "userId") Long userId) {
-        var user = userRepository.findById(userId);
-        return user.map(UserDTO::new).orElse(null);
+        return userService.getUserInfo(userId);
     }
 
-    @GetMapping("/info")
-    public UserDTO profileMyUser(HttpSession httpSession) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            String username = authentication.getName();
-            var contextUser = userRepository.findByName(username);
-            return contextUser.map(UserDTO::new).orElse(null);
-        }
-        return null;
+    @GetMapping("/user")
+    public UserDTO profileMyUser() {
+        return userService.getUserInfo();
+    }
+
+    @GetMapping("/story/{userId}")
+    public List<StoryDTO> getStoriesByAuthor(@PathVariable(name = "userId") Long userId) {
+        return storyService.getListStoryByAuthor(userId);
+    }
+
+    @GetMapping("/story")
+    public List<StoryDTO> getMyStories() {
+        return storyService.getListMyStory();
+    }
+
+    @GetMapping("/storyTag/{userId}")
+    public List<StoryDTO> getStoriesTag(@PathVariable(name = "userId") Long userId) {
+        return storyService.getListStoryTag(userId);
+    }
+
+    @GetMapping("/storyTag")
+    public List<StoryDTO> getStoriesMyTag() {
+        return storyService.getListMyStoryTag();
     }
 
     @PutMapping("/changeIcon")
     public void profileChangeIcon(@RequestBody String icon) {
-
+        userService.changeIcon(icon);
     }
 }
