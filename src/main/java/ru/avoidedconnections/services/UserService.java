@@ -1,13 +1,11 @@
 package ru.avoidedconnections.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.avoidedconnections.config.MyUserDetails;
-import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.dto.UserDTO;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.UserRepository;
@@ -44,6 +42,10 @@ public class UserService {
         );
     }
 
-
+    public void changeIcon(String icon) {
+        User user = getCurrentUser();
+        user.setIcon(icon);
+        userRepository.save(user);
+    }
 
 }

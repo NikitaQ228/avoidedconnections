@@ -2,16 +2,14 @@ package ru.avoidedconnections.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.FetchMode;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.Type;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
@@ -42,7 +40,12 @@ public class Story {
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
-    @ManyToMany(mappedBy = "stories", fetch = FetchType.LAZY)
-    private List<User> usersTag;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "users_tag",  // Имя связующей таблицы
+            joinColumns = @JoinColumn(name = "story_id"),  // Внешний ключ для Story
+            inverseJoinColumns = @JoinColumn(name = "user_id")  // Внешний ключ для User
+    )
+    private List<User> usersTag = new ArrayList<>();
 
 }

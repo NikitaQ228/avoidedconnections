@@ -29,16 +29,11 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "users_tag",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "story_id"))
+    @ManyToMany(mappedBy = "usersTag", fetch = FetchType.LAZY)
     private List<Story> stories;
 
     public User(String name, String password) {
         this.name = name;
         this.password = password;
     }
-
 }
