@@ -1,4 +1,4 @@
-package ru.avoidedconnections.config;
+package ru.avoidedconnections.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,10 +6,10 @@ import ru.avoidedconnections.model.User;
 
 import java.util.Collection;
 
-public class MyUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
     private User user;
 
-    public MyUserDetails(User user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 

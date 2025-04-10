@@ -1,5 +1,6 @@
 package ru.avoidedconnections.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,11 @@ import ru.avoidedconnections.services.StoryService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @RestController
 public class MainController {
     private final StoryService storyService;
 
-    public MainController(StoryService storyService) {
-        this.storyService = storyService;
-    }
 
     @GetMapping("/mainInfo")
     public List<StoryDTO> mainInfoPage(@RequestParam(required = false) String city,

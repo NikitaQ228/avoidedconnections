@@ -1,5 +1,6 @@
 package ru.avoidedconnections.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,18 +12,13 @@ import ru.avoidedconnections.services.UserService;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/story")
 public class StoryController {
     private final StoryService storyService;
     private final CommentService commentService;
     private final UserService userService;
-
-    public StoryController(StoryService storyService, CommentService commentService, UserService userService) {
-        this.storyService = storyService;
-        this.commentService = commentService;
-        this.userService = userService;
-    }
 
     @GetMapping("/{storyId}")
     public StoryDTO getStoryInfo(@PathVariable(name = "storyId") Long storyId) {

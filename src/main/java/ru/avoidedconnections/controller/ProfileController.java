@@ -1,5 +1,6 @@
 package ru.avoidedconnections.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.avoidedconnections.dto.StoryDTO;
@@ -9,16 +10,12 @@ import ru.avoidedconnections.services.UserService;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
     public final UserService userService;
     public final StoryService storyService;
-
-    public ProfileController(UserService userService, StoryService storyService) {
-        this.userService = userService;
-        this.storyService = storyService;
-    }
 
     @GetMapping("/user/{userId}")
     public UserDTO profileInfoUser(@PathVariable(name = "userId") Long userId) {

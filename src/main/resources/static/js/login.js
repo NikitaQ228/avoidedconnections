@@ -30,7 +30,7 @@ fistForm.addEventListener("submit", async function(event) {
         };
 
         try {
-            const response = await fetch('/login/addUser', {
+            const response = await fetch('/auth/registration', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,18 +39,17 @@ fistForm.addEventListener("submit", async function(event) {
             });
 
             if (response.status === 201) {
-                const userDataEntry = `username=${name}&password=${password}`;
-
                 try {
-                    const response = await fetch('/login', {
+                    const response = await fetch('/auth/signIn', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
                         },
-                        body: userDataEntry
+                        body: JSON.stringify(userData)
                     });
 
                     if (response.status === 200) {
+                        localStorage.setItem('jwtToken', response);
                         window.location.href = '/';
                     }
                 } catch (error) {
@@ -72,18 +71,22 @@ secondForm.addEventListener("submit", async function(event) {
     const name = encodeURIComponent(document.getElementById('name2').value);
     const password = encodeURIComponent(document.getElementById('password2').value);
 
-    const userData = `username=${name}&password=${password}`;
+    const userData = {
+        name: name,
+        password: password
+    };
 
     try {
-        const response = await fetch('/login', {
+        const response = await fetch('/auth/signIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: userData
+            body: JSON.stringify(userData)
         });
 
         if (response.status === 200) {
+            localStorage.setItem('jwtToken', response);
             window.location.href = '/';
         }
         if (response.status === 401) {

@@ -1,33 +1,50 @@
 package ru.avoidedconnections.services;
 
-import org.hibernate.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+import ru.avoidedconnections.dto.JwtAuthenticationDTO;
+import ru.avoidedconnections.dto.RefreshTokenDTO;
+import ru.avoidedconnections.dto.UserCredentialsDTO;
 import ru.avoidedconnections.dto.UserDTO;
-import ru.avoidedconnections.config.MyUserDetails;
+import ru.avoidedconnections.security.CustomUserDetails;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.UserRepository;
+import ru.avoidedconnections.security.jwt.JwtService;
 
+import javax.naming.AuthenticationException;
 import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+    }
+
+    public JwtAuthenticationDTO signIn(UserCredentialsDTO userCredentialsDTO) throws AuthenticationException {
+        User user = findByCredentials(userCredentialsDTO);
+        return jwtService.generateAuthToken(user.getName());
+    }
+
+    public JwtAuthenticationDTO refreshToken(RefreshTokenDTO refreshTokenDTO) throws Exception {
+        String refreshToken = refreshTokenDTO.getRefreshToken();
+        if (refreshToken != null && jwtService.validateJwtToken(refreshToken)) {
+            User user = findByName(jwtService.getNameFromToken(refreshToken));
+            return jwtService.refreshBaseToken(user.getName(), refreshToken);
+        }
+        throw new AuthenticationException("Invalid refresh token");
     }
 
     public boolean addUser(User user) {
-        if (userRepository.findByName(user.getName()).isPresent())
+        if (userRepository.existsByName(user.getName()))
             return false;
         user.setIcon("1.png");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -49,7 +66,7 @@ public class UserService {
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) authentication.getPrincipal();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         return userDetails.getUser();
     }
 
@@ -69,4 +86,18 @@ public class UserService {
         userRepository.save(user);
     }
 
+    private User findByCredentials(UserCredentialsDTO userCredentialsDTO) throws AuthenticationException {
+        Optional<User> optionalUser = userRepository.findByName(userCredentialsDTO.getName());
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
+            if (passwordEncoder.matches(userCredentialsDTO.getPassword(), user.getPassword())) {
+                return user;
+            }
+        }
+        throw new AuthenticationException("Name or password is not correct");
+    }
+
+    private User findByName(String name) throws Exception {
+        return userRepository.findByName(name).orElseThrow(() -> new Exception(String.format("User with name is not found", name)));
+    }
 }
