@@ -53,12 +53,6 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                         .defaultSuccessUrl("/")
-                        .successHandler((request, response, authentication) -> {
-                            response.setStatus(HttpServletResponse.SC_OK);
-                        })
-                        .failureHandler((request, response, exception) -> {
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                        })
                 )
                 .build();
     }
