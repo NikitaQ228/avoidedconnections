@@ -5,14 +5,19 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import ru.avoidedconnections.dto.JwtAuthenticationDTO;
+import ru.avoidedconnections.model.JwtBlacklist;
+import ru.avoidedconnections.repository.JwtBlacklistRepository;
 
 import javax.crypto.SecretKey;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class JwtService {
@@ -20,17 +25,19 @@ public class JwtService {
     private static final Logger LOGGER = LogManager.getLogger(JwtService.class);
     @Value("d71b6c245aa5aabc13a93c64ae02059fa0d3bc0b131285f4190e1c4f12f5cb6ec629e391a4f4899aca1ddaf8951cd4b02b3888c7da44ab887b83890197eed5fd")
     private String jwtSecret;
+    @Autowired
+    private JwtBlacklistRepository jwtBlacklistRepository;
 
     public JwtAuthenticationDTO generateAuthToken(String name) {
         JwtAuthenticationDTO jwtDto = new JwtAuthenticationDTO();
-        jwtDto.setToken(generateJwtToken(name));
+        jwtDto.setAccessToken(generateJwtToken(name));
         jwtDto.setRefreshToken(generateRefreshToken(name));
         return jwtDto;
     }
 
     public JwtAuthenticationDTO refreshBaseToken(String name, String refreshToken) {
         JwtAuthenticationDTO jwtDto = new JwtAuthenticationDTO();
-        jwtDto.setToken(generateJwtToken(name));
+        jwtDto.setAccessToken(generateJwtToken(name));
         jwtDto.setRefreshToken(refreshToken);
         return jwtDto;
     }
@@ -67,7 +74,7 @@ public class JwtService {
     }
 
     private String generateJwtToken(String name) {
-        Date date = Date.from(LocalDateTime.now().plusHours(1).atZone(ZoneId.systemDefault()).toInstant());
+        Date date = Date.from(LocalDateTime.now().plusMinutes(30).atZone(ZoneId.systemDefault()).toInstant());
         return Jwts.builder()
                 .subject(name)
                 .expiration(date)
@@ -83,6 +90,23 @@ public class JwtService {
                 .signWith(getSignInKey())
                 .compact();
     }
+
+    public Date getExpirationFromToken(String token) {
+        Claims claims = Jwts.parser()
+                .verifyWith(getSignInKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        return claims.getExpiration();
+    }
+
+    public void addTokenToBlacklist(String token, Instant expirationDate) {
+        JwtBlacklist jwtBlacklist = new JwtBlacklist();
+        jwtBlacklist.setToken(token);
+        jwtBlacklist.setExpirationDate(expirationDate);
+        jwtBlacklistRepository.save(jwtBlacklist);
+    }
+
 
     private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
