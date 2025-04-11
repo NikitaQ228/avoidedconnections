@@ -2,7 +2,10 @@ package ru.avoidedconnections.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.avoidedconnections.dto.ChangePasswordDTO;
 import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.dto.UserDTO;
 import ru.avoidedconnections.services.StoryService;
@@ -51,4 +54,10 @@ public class ProfileController {
     public void profileChangeIcon(@RequestBody String icon) {
         userService.changeIcon(icon);
     }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<HttpStatus> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
+        return userService.changePassword(changePasswordDTO);
+    }
+
 }
