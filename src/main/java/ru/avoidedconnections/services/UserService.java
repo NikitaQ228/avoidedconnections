@@ -33,7 +33,7 @@ public class UserService {
         return jwtService.generateAuthToken(user.getName());
     }
 
-    public JwtAuthenticationDTO refreshToken(RefreshTokenDTO refreshTokenDTO) throws Exception {
+    public JwtAuthenticationDTO refreshToken(RefreshTokenDTO refreshTokenDTO) throws AuthenticationException, UsernameNotFoundException {
         String refreshToken = refreshTokenDTO.getRefreshToken();
         if (refreshToken != null && jwtService.validateJwtToken(refreshToken)) {
             User user = findByName(jwtService.getNameFromToken(refreshToken));
@@ -96,8 +96,8 @@ public class UserService {
         throw new AuthenticationException("Name or password is not correct");
     }
 
-    private User findByName(String name) throws Exception {
-        return userRepository.findByName(name).orElseThrow(() -> new Exception(String.format("User with name is not found", name)));
+    private User findByName(String name) throws UsernameNotFoundException {
+        return userRepository.findByName(name).orElseThrow(() -> new UsernameNotFoundException(name + " not found"));
     }
 
     public ResponseEntity<HttpStatus> changePassword(ChangePasswordDTO changePasswordDTO) {

@@ -43,8 +43,8 @@ public class StoryService {
     }
 
     public StoryDTO deleteStory(Long storyId) {
-        var storyDTO = storyRepository.findById(storyId).map(StoryDTO::new).orElseThrow(() -> new
-                ObjectNotFoundException(storyId, "История "));
+        var storyDTO = storyRepository.findById(storyId).map(StoryDTO::new).orElseThrow(
+                () -> new ObjectNotFoundException(storyId, "История "));
         storyRepository.deleteById(storyId);
         return storyDTO;
     }
@@ -66,56 +66,36 @@ public class StoryService {
 
     public Story getStoryById(Long id) {
         return storyRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Story not found with id: " + id)
+                () -> new ObjectNotFoundException(id, "История ")
         );
     }
 
     public List<StoryDTO> getStoryByQuery(String city, String query) {
-        if (city == null) {
-            if (query == null) {
-                return storyRepository.findAllStoriesSortedByDate().stream().map(StoryDTO::new).collect(Collectors.toList());
-            } else {
-                return storyRepository.findStoriesByQuery(query).stream().map(StoryDTO::new).collect(Collectors.toList());
-            }
-        } else {
-            if (query == null) {
-                return storyRepository.findStoriesByCity(city).stream().map(StoryDTO::new).collect(Collectors.toList());
-            } else {
-                return storyRepository.searchStories(city, query).stream().map(StoryDTO::new).collect(Collectors.toList());
-            }
-        }
+        return storyRepository.searchStories(city, query).stream().map(StoryDTO::new).collect(Collectors.toList());
     }
 
     public List<StoryDTO> getListStoryByAuthor(Long id) {
-        return Collections.unmodifiableList(
-                storyRepository.findByAuthorId(id).stream()
-                        .map(StoryDTO::new)
-                        .collect(Collectors.toList())
-        );
+        return storyRepository.findByAuthorId(id).stream()
+                .map(StoryDTO::new).toList();
     }
 
     public List<StoryDTO> getListMyStory() {
-        return Collections.unmodifiableList(
-                storyRepository.findByAuthorId(userService.getCurrentUser().getId()).stream()
-                        .map(StoryDTO::new)
-                        .collect(Collectors.toList())
-        );
+        return storyRepository.findByAuthorId(userService.getCurrentUser().getId()).stream()
+                .map(StoryDTO::new).toList();
     }
 
     public List<StoryDTO> getListStoryTag(Long id) {
-        return Collections.unmodifiableList(
-                        userRepository.findStoriesByUserId(id).stream()
-                        .map(StoryDTO::new)
-                        .collect(Collectors.toList())
-        );
+        Optional<User> user = userRepository.findById(id);
+        return user.map(value -> storyRepository.findByAuthorId(value.getId()).stream()
+                .map(StoryDTO::new)
+                .collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
     public List<StoryDTO> getListMyStoryTag() {
-        return Collections.unmodifiableList(
-                userRepository.findStoriesByUserId(userService.getCurrentUser().getId()).stream()
-                        .map(StoryDTO::new)
-                        .collect(Collectors.toList())
-        );
+        Optional<User> user = userRepository.findById(userService.getCurrentUser().getId());
+        return user.map(value -> storyRepository.findByAuthorId(value.getId()).stream()
+                .map(StoryDTO::new)
+                .collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
     public ResponseEntity<String> uploadImage(MultipartFile image) {
