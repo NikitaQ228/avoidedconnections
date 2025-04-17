@@ -5,29 +5,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
-    @GetMapping
+    @GetMapping("/")
     public String getMainPage() {
-        return "main.html";
+        return "/pages/main.html";
     }
 
     @GetMapping("/login")
     public String getLoginPage() {
-        return "login.html";
+        return "/pages/login.html";
     }
 
     @GetMapping("/profile")
     public String getProfilePage() {
-        return null;
+        return "/pages/profile.html";
     }
 
     @GetMapping("/story")
     public String getStoryPage() {
-        return null;
+        return "/pages/story.html";
     }
 
     @GetMapping("/addStory")
     public String getAddStoryPage() {
-        return null;
+        return "/pages/addstory.html";
     }
 
 }

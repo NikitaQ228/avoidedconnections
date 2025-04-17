@@ -33,8 +33,15 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String token = getTokenFromRequest(request);
 
+        String path = request.getServletPath();
+        if (path.equals("/login") || path.equals("/") || path.equals("/profile") || path.equals("/story") || path.equals("/addStory")
+                || path.startsWith("/auth/") || path.startsWith("/js/") || path.startsWith("/css/") || path.startsWith("/img/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        String token = getTokenFromRequest(request);
         if (token != null && jwtService.validateJwtToken(token)) {
             if (jwtBlacklistRepository.findByToken(token).isPresent()) {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);

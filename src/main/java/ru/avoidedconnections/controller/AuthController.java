@@ -37,7 +37,7 @@ public class AuthController {
         return userService.refreshToken(refreshTokenDTO);
     }
 
-    @PostMapping("/SignUp")
+    @PostMapping("/signUp")
     public ResponseEntity<HttpStatus> addUser(@RequestBody User user) {
         if (userService.addUser(user))
             return ResponseEntity.status(HttpStatus.CREATED).build();

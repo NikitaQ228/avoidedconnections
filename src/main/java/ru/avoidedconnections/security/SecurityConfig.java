@@ -42,13 +42,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.httpBasic(AbstractHttpConfigurer::disable)
+        return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/logout", "/js/**", "/css/**", "/img/**").permitAll()
-                        .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login").anonymous()
+                        .requestMatchers("/auth/**", "/", "/profile", "/story", "/addStory").permitAll()
+                        .requestMatchers("/pages/**", "/js/**", "/css/**", "/img/**").permitAll()
+                        .requestMatchers("/**").permitAll()  //authenticated()
+                )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                //.formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
@@ -57,11 +60,23 @@ public class SecurityConfig {
                 .build();
     }
 
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    @Bean
+    public AuthenticationEntryPoint unauthorizedHandler() {
+        return new AuthenticationEntryPoint() {
+            @Override
+            public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"Вы не авторизованы для доступа к этому ресурсу.\"}");
+            }
+        };
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

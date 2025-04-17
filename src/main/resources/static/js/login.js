@@ -30,7 +30,7 @@ fistForm.addEventListener("submit", async function(event) {
         };
 
         try {
-            const response = await fetch('/auth/registration', {
+            const response = await fetch('/auth/signUp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,13 +43,20 @@ fistForm.addEventListener("submit", async function(event) {
                     const response = await fetch('/auth/signIn', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
+                            'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(userData)
                     });
 
-                    if (response.status === 200) {
-                        localStorage.setItem('jwtToken', response);
+                    if (response.ok) {
+                        const { accessToken, refreshToken } = await response.json();
+
+                        // Сохраняем accessToken в localStorage
+                        localStorage.setItem('accessToken', accessToken);
+
+                        // Сохраняем refreshToken в cookie
+                        const maxAge = 24 * 3600; // 1 день в секундах
+                        document.cookie = `refreshToken=${refreshToken}; Path=/; Secure; SameSite=Strict; Max-Age=${maxAge}`;
                         window.location.href = '/';
                     }
                 } catch (error) {
@@ -80,13 +87,20 @@ secondForm.addEventListener("submit", async function(event) {
         const response = await fetch('/auth/signIn', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(userData)
         });
 
-        if (response.status === 200) {
-            localStorage.setItem('jwtToken', response);
+        if (response.ok) {
+            const { accessToken, refreshToken } = await response.json();
+
+            // Сохраняем accessToken в localStorage
+            localStorage.setItem('accessToken', accessToken);
+
+            // Сохраняем refreshToken в cookie
+            const maxAge = 24 * 3600; // 1 день в секундах
+            document.cookie = `refreshToken=${refreshToken}; Path=/; Secure; SameSite=Strict; Max-Age=${maxAge}`;
             window.location.href = '/';
         }
         if (response.status === 401) {

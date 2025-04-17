@@ -36,7 +36,7 @@ public class CommentService {
 
     public List<CommentDTO> getCommentsByStoryId(Long id) {
         return Collections.unmodifiableList(
-                commentRepository.findByStoryIdOrderByDateDesc(id).stream()
+                commentRepository.findByStoryIdOrderByDateAsc(id).stream()
                         .map(CommentDTO::new)
                         .collect(Collectors.toList())
         );

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.avoidedconnections.dto.StoryDTO;
+import ru.avoidedconnections.dto.StoryResponse;
 import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.repository.StoryRepository;
 import ru.avoidedconnections.services.StoryService;
@@ -22,8 +23,8 @@ public class MainController {
 
 
     @GetMapping("/mainInfo")
-    public List<StoryDTO> mainInfoPage(@RequestParam(required = false) String city,
-                                       @RequestParam(required = false) String query) {
+    public List<StoryResponse> mainInfoPage(@RequestParam(required = false) String city,
+                                            @RequestParam(required = false) String query) {
         return storyService.getStoryByQuery(city, query);
     }
 

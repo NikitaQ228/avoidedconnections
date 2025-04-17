@@ -1,0 +1,122 @@
+/* Адаптивность для маленьких экранов */
+@media (max-width: 480px) {
+    .posts-container {
+        justify-content: center;
+    }
+    .post-card {
+        width: 90%;
+        max-width: 400px;
+    }
+}
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* расстояние между элементами */
+    max-width: 600px; /* максимальная ширина контейнера */
+    margin: 0 auto; /* центрирование по горизонтали */
+}
+
+.form-control {
+    flex: 1; /* чтобы инпуты занимали равное пространство */
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #e99d05; /* синий цвет при фокусе */
+    box-shadow: 0 0 5px rgba(170, 99, 6, 0.5);
+}
+
+.input-group-prepend {
+/* Чтобы кнопка не сжималась */
+    flex-shrink: 0;
+}
+
+.site-button {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.site-button:hover {
+    background-color: #a76b0a;
+}
+
+/* Контейнер для карточек */
+.posts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Карточка поста */
+.post-card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+/* Изображение человека */
+.post-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid #333;
+}
+/* Контент карточки */
+.post-content {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+/* Заголовок */
+.post-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #f39c12; /* яркий оранжевый */
+}
+/* Информация о городе и дате */
+.post-meta {
+    font-size: 0.9rem;
+    color: #aaa;
+    display: flex;
+    justify-content: space-between;
+    font-style: italic;
+}
+/* Текст поста */
+.post-text {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #ddd;
+}
+.post-link {
+    display: block;
+    color: inherit;          /* сохранить цвет текста */
+    text-decoration: none;   /* убрать подчеркивание */
+}
+
+.post-link:hover .post-card {
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2); /* эффект при наведении */
+    transform: translateY(-8px);
+}
+

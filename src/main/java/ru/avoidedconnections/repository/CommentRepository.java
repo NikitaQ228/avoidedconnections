@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findByStoryIdOrderByDateDesc(Long storyId);
+    List<Comment> findByStoryIdOrderByDateAsc(Long storyId);
 }

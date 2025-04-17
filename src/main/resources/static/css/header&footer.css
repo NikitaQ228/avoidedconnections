@@ -1,0 +1,105 @@
+/* Сброс отступов и базовые стили */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000000;
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+html, body {
+    height: 100%; /* чтобы body занимал всю высоту окна */
+    margin: 0; /* убрать отступы по умолчанию */
+}
+/* Шапка сайта */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e1e1e; 
+  padding: 15px 30px;
+  color: white;
+}
+/* Название сайта */
+.site-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+/* Навигация справа */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+/* Ссылка на профиль */
+.profile-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.profile-link:hover {
+  background-color: #6d4807;
+}
+/* Кнопка добавления истории */
+.add-story-btn {
+  background-color: #e67e22; /* оранжевый */
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.add-story-btn:hover {
+  background-color: #b76208;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 480px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+footer {
+  background-color: #1e1e1e; /* черный фон */
+  color: #ffffff; /* белый цвет текста */
+  padding: 20px; /* внутренние отступы */
+  width: 100%; /* растянуть на всю ширину */
+  box-sizing: border-box; /* учитывать padding в ширине */
+  font-family: Arial, sans-serif; /* шрифт */
+  text-align: center;
+  margin-top: 40px;
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+.content {
+    flex: 1; /* занимает оставшееся пространство */
+}
+footer div {
+  max-width: 1200px; /* ограничение ширины содержимого */
+  margin: 0 auto; /* центрирование */
+}
+
+footer p {
+  margin: 0 0 10px 0; /* отступы между абзацами и списком */
+}
+  

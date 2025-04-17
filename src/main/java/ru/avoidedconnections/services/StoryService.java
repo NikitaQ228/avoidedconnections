@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.multipart.MultipartFile;
 import ru.avoidedconnections.dto.StoryDTO;
+import ru.avoidedconnections.dto.StoryResponse;
 import ru.avoidedconnections.model.Story;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.StoryRepository;
@@ -70,8 +71,8 @@ public class StoryService {
         );
     }
 
-    public List<StoryDTO> getStoryByQuery(String city, String query) {
-        return storyRepository.searchStories(city, query).stream().map(StoryDTO::new).collect(Collectors.toList());
+    public List<StoryResponse> getStoryByQuery(String city, String query) {
+        return storyRepository.searchStories(city, query).stream().map(StoryResponse::new).collect(Collectors.toList());
     }
 
     public List<StoryDTO> getListStoryByAuthor(Long id) {

@@ -2,8 +2,8 @@
 /* COLORS */
     --white: #e9e9e9;
     --gray: #333;
-    --blue: #0367a6;
-    --lightblue: #008997;
+    --blue: #a66503;
+    --lightblue: #979400;
 
     /* RADII */
     --button-radius: 0.7rem;
@@ -20,7 +20,7 @@
 body {
     align-items: center;
     background-color: var(--white);
-    background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+    background: url("/img/4668f327cce98aaaef6f9ea05f6b2537.jpg");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -103,7 +103,7 @@ body {
 
 .overlay {
     background-color: var(--lightblue);
-    background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+    background-color: #1e1e1e;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
