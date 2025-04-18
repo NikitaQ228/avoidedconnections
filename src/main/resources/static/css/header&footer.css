@@ -14,15 +14,15 @@ body {
   min-height: 100vh;
 }
 html, body {
-    height: 100%; /* чтобы body занимал всю высоту окна */
-    margin: 0; /* убрать отступы по умолчанию */
+  height: 100%; /* чтобы body занимал всю высоту окна */
+  margin: 0; /* убрать отступы по умолчанию */
 }
 /* Шапка сайта */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e1e1e; 
+  background-color: #1e1e1e;
   padding: 15px 30px;
   color: white;
 }
@@ -92,7 +92,7 @@ footer {
   box-sizing: border-box;
 }
 .content {
-    flex: 1; /* занимает оставшееся пространство */
+  flex: 1; /* занимает оставшееся пространство */
 }
 footer div {
   max-width: 1200px; /* ограничение ширины содержимого */
@@ -102,4 +102,3 @@ footer div {
 footer p {
   margin: 0 0 10px 0; /* отступы между абзацами и списком */
 }
-  

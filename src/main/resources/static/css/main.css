@@ -114,7 +114,9 @@
     color: inherit;          /* сохранить цвет текста */
     text-decoration: none;   /* убрать подчеркивание */
 }
-
+.content {
+    flex: 1; /* занимает оставшееся пространство */
+}
 .post-link:hover .post-card {
     box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2); /* эффект при наведении */
     transform: translateY(-8px);
