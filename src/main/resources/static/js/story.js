@@ -9,14 +9,14 @@ function populateStory(data) {
     storyImage.src = `img/${data.img}`;
     title.textContent = data.head;
 
-    authorInfo.innerHTML = `Автор: <a href="/profile?${data.author.id}" style="color:#e8e561; text-decoration:none;">${data.author.name}</a>`;
+    authorInfo.innerHTML = `Автор: <a href="/profile?id=${data.author.id}" style="color:#e8e561; text-decoration:none;">${data.author.name}</a>`;
 
     const date = new Date(data.date);
     const formattedDate = `${date.toLocaleDateString('ru-RU')}`;
 
     locationDate.textContent = `${data.city} — ${formattedDate}`;
 
-    tags.innerHTML = data.usersTag.map(user => `<span><a href="/profile?${user.id}" target="_blank" rel="noopener noreferrer">${user.name}</a></span>`).join('\n');
+    tags.innerHTML = data.usersTag.map(user => `<span><a href="/profile?id=${user.id}" target="_blank" rel="noopener noreferrer">${user.name}</a></span>`).join('\n');
 
     storyText.textContent = data.text;
 }
@@ -55,7 +55,7 @@ function addComment(commentData) {
     commentHeader.className = 'comment-header';
 
     const profileLink = document.createElement('a');
-    profileLink.href = `/profile?${commentData.writer.id}`;
+    profileLink.href = `/profile?id=${commentData.writer.id}`;
     profileLink.target = '_blank';
     profileLink.rel = 'noopener noreferrer';
     profileLink.textContent = commentData.writer.name;

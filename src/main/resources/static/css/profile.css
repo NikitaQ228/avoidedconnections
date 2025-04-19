@@ -6,7 +6,7 @@
 }
 
 .profile-container {
-    max-width: 900px;
+    max-width: 1100px;
     width: 100%;
     background-color: #1e1e1e;
     border-radius: 10px;
@@ -185,129 +185,86 @@
     cursor: pointer;
     transition: border-color 0.3s;
 }
-.avatar-grid img:hover,
-.avatar-grid img.selected {
+.avatar-grid img:hover {
     border-color: #b9951d;
 }
 /* Списки историй */
 .stories-section {
     margin-top: 30px;
 }
+
 .stories-section h3 {
+    text-align: center;
     border-bottom: 2px solid #b9881d;
     padding-bottom: 5px;
     margin-bottom: 15px;
     font-weight: 700;
     font-size: 1.3rem;
 }
-.posts-wrapper {
-    position: relative;
-    max-width: 100%;
-    margin: 20px 0;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-
 
 .posts-container {
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 10px 0;
-    scrollbar-width: none; /* Firefox */
-
-    width: calc(100% - 120px); /* 2 кнопки по 40px + по 20px отступа с каждой стороны */
-    margin: 0 60px; /* отступы слева и справа под кнопки */
-
-    /* Центрируем содержимое */
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    gap: 15px;
+    margin-top: 20px;
 }
 
-.posts-container::-webkit-scrollbar {
-    display: none;
-}
-
-.post-link {
-    flex: 0 0 300px; /* фиксированная ширина карточки */
-    text-decoration: none;
-    color: inherit;
-}
-
+/* Карточка поста */
 .post-card {
     background-color: #1e1e1e;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(185, 143, 29, 0.5);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    width: 320px;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    transition: transform 0.3s ease;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .post-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
 }
-
+/* Изображение человека */
 .post-image {
     width: 100%;
-    height: 160px;
+    height: 200px;
     object-fit: cover;
+    border-bottom: 1px solid #333;
 }
-
+/* Контент карточки */
 .post-content {
-    padding: 15px;
+    padding: 16px 20px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    gap: 10px;
 }
-
+/* Заголовок */
 .post-title {
-    margin: 0 0 8px;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
+    color: #f39c12; /* яркий оранжевый */
 }
-
+/* Информация о городе и дате */
 .post-meta {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #aaa;
-    margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
+    font-style: italic;
 }
-
+/* Текст поста */
 .post-text {
-    flex-grow: 1;
     font-size: 1rem;
-    line-height: 1.3;
-    color: #ccc;
+    line-height: 1.4;
+    color: #ddd;
 }
-
-.scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #1e1e1e;
-    border: none;
-    color: rgb(211, 143, 17);
-    font-size: 2rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
+.post-link {
+    display: block;
+    color: inherit;          /* сохранить цвет текста */
+    text-decoration: none;   /* убрать подчеркивание */
 }
-
-.scroll-btn.left {
-    left: 10px; /* отступ от левого края */
-}
-
-.scroll-btn.right {
-    right: 10px; /* отступ от правого края */
+.post-link:hover .post-card {
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2); /* эффект при наведении */
+    transform: translateY(-8px);
 }

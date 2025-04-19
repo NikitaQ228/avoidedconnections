@@ -23,7 +23,7 @@
 
         <!-- Аватар -->
         <div class="avatar-wrapper" title="Нажмите, чтобы выбрать аватар">
-            <img id="avatar" src="/img/1.png" alt="Аватар пользователя" />
+            <img id="avatar" src="/img/1.png" />
         </div>
 
         <!-- Имя пользователя -->
@@ -36,52 +36,44 @@
 
         <!-- Список его историй -->
         <section class="stories-section">
-            <h3>User Stories</h3>
-            <div class="posts-wrapper">
-                <button class="scroll-btn left" aria-label="Листать влево">&#9664;</button>
-
-                <div class="posts-container">
-                    <a href="post-page.html" class="post-link">
-                        <article class="post-card">
-                            <img src="/img/1.jpg" class="post-image" />
-                            <div class="post-content">
-                                <h2 class="post-title">Алкоголик</h2>
-                                <div class="post-meta">
-                                    <span>Самара</span>
-                                    <time datetime="2025-04-15">15 апреля 2025</time>
-                                </div>
-                                <p class="post-text">
-                                    Когда-то у него была работа, семья, друзья, но алкоголь постепенно вытеснил все это из его жизни..
-                                </p>
+            <h3>Истории пользователя</h3>
+            <div class="posts-container" id = "posts-container1">
+                <a href="post-page.html" class="post-link">
+                    <article class="post-card">
+                        <img src="/img/lex.jpg" class="post-image" />
+                        <div class="post-content">
+                            <h2 class="post-title">Алкоголик</h2>
+                            <div class="post-meta">
+                                <span>Самара</span>
+                                <time datetime="2025-04-15">15 апреля 2025</time>
                             </div>
-                        </article>
-                    </a>
-                <button class="scroll-btn right" aria-label="Листать вправо">&#9654;</button>
+                            <p class="post-text">
+                                Когда-то у него была работа, семья, друзья, но алкоголь постепенно вытеснил все это из его жизни..
+                            </p>
+                        </div>
+                    </article>
+                </a>
             </div>
         </section>
 
         <section class="stories-section">
-            <h3>The stories that the user is marked under</h3>
-            <div class="posts-wrapper">
-                <button class="scroll-btn left" aria-label="Листать влево">&#9664;</button>
-
-                <div class="posts-container">
-                    <a href="post-page.html" class="post-link">
-                        <article class="post-card">
-                            <img src="/img/1.jpg" class="post-image" />
-                            <div class="post-content">
-                                <h2 class="post-title">Алкоголик</h2>
-                                <div class="post-meta">
-                                    <span>Самара</span>
-                                    <time datetime="2025-04-15">15 апреля 2025</time>
-                                </div>
-                                <p class="post-text">
-                                    Когда-то у него была работа, семья, друзья, но алкоголь постепенно вытеснил все это из его жизни..
-                                </p>
+            <h3>Истории, в которых отметили пользователя</h3>
+            <div class="posts-container" id = "posts-container2">
+                <a href="post-page.html" class="post-link">
+                    <article class="post-card">
+                        <img src="/img/lex.png" class="post-image" />
+                        <div class="post-content">
+                            <h2 class="post-title">Алкоголик</h2>
+                            <div class="post-meta">
+                                <span>Самара</span>
+                                <time datetime="2025-04-15">15 апреля 2025</time>
                             </div>
-                        </article>
-                    </a>
-                <button class="scroll-btn right" aria-label="Листать вправо">&#9654;</button>
+                            <p class="post-text">
+                                Когда-то у него была работа, семья, друзья, но алкоголь постепенно вытеснил все это из его жизни..
+                            </p>
+                        </div>
+                    </article>
+                </a>
             </div>
         </section>
     </div>
@@ -93,15 +85,15 @@
         <div class="modal-close" title="Закрыть" onclick="closeAvatarModal()">&times;</div>
         <h2>Выберите аватар</h2>
         <div class="avatar-grid" id="avatarGrid">
-            <img src="/img/1.png" class="selected" />
-            <img src="/img/2.png" />
-            <img src="/img/3.png" />
-            <img src="/img/4.png" />
-            <img src="/img/5.png" />
-            <img src="/img/6.png" />
-            <img src="/img/7.png" />
-            <img src="/img/8.png" />
-            <img src="/img/9.png" />
+            <img src="/img/1.png" data-avatar = "1.png" />
+            <img src="/img/2.png" data-avatar = "2.png" />
+            <img src="/img/3.png" data-avatar = "3.png" />
+            <img src="/img/4.png" data-avatar = "4.png" />
+            <img src="/img/5.png" data-avatar = "5.png" />
+            <img src="/img/6.png" data-avatar = "6.png" />
+            <img src="/img/7.png" data-avatar = "7.png" />
+            <img src="/img/8.png" data-avatar = "8.png" />
+            <img src="/img/9.png" data-avatar = "9.png" />
         </div>
     </div>
 </div>

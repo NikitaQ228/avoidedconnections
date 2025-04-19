@@ -31,11 +31,6 @@ public class User {
     private String password;
 
     @ManyToMany(mappedBy = "usersTag", fetch = FetchType.LAZY)
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "users_tag",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "story_id"))
     private List<Story> stories;
 
     public User(String name, String password) {

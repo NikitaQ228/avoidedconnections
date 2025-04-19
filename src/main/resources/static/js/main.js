@@ -24,14 +24,14 @@ async function loadMainInfo({ city, query }) {
     if (response.ok) {
         const container = document.querySelector('.posts-container');
         if (!container) return;
-        container.innerHTML = ''
-        result.forEach(story => {
-            createStory(story)
-        });
-    } else {
-        const container = document.querySelector('.posts-container');
-        if (!container) return;
-        container.innerHTML = 'Ничего не найдено'
+        if (result.length === 0) {
+            container.innerHTML = '<p style="color: white; font-size: 48px; font-weight: bold; text-align: center; margin: 0; padding: 20px;">Ничего не найдено</p>';
+        } else {
+            container.innerHTML = '';
+            result.forEach(story => {
+                createStory(story)
+            });
+        }
     }
 }
 

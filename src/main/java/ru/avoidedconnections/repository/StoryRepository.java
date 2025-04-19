@@ -56,4 +56,6 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
      * Получение историй по автору.
      */
     List<Story> findByAuthorId(Long authorId);
+
+    List<Story> findByUsersTagId(Long userId);
 }

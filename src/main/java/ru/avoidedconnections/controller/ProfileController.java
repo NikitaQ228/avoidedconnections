@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.avoidedconnections.dto.ChangePasswordDTO;
 import ru.avoidedconnections.dto.StoryDTO;
+import ru.avoidedconnections.dto.StoryResponse;
 import ru.avoidedconnections.dto.UserDTO;
 import ru.avoidedconnections.services.StoryService;
 import ru.avoidedconnections.services.UserService;
@@ -31,22 +32,22 @@ public class ProfileController {
     }
 
     @GetMapping("/story/{userId}")
-    public List<StoryDTO> getStoriesByAuthor(@PathVariable(name = "userId") Long userId) {
+    public List<StoryResponse> getStoriesByAuthor(@PathVariable(name = "userId") Long userId) {
         return storyService.getListStoryByAuthor(userId);
     }
 
     @GetMapping("/story")
-    public List<StoryDTO> getMyStories() {
+    public List<StoryResponse> getMyStories() {
         return storyService.getListMyStory();
     }
 
     @GetMapping("/storyTag/{userId}")
-    public List<StoryDTO> getStoriesTag(@PathVariable(name = "userId") Long userId) {
+    public List<StoryResponse> getStoriesTag(@PathVariable(name = "userId") Long userId) {
         return storyService.getListStoryTag(userId);
     }
 
     @GetMapping("/storyTag")
-    public List<StoryDTO> getStoriesMyTag() {
+    public List<StoryResponse> getStoriesMyTag() {
         return storyService.getListMyStoryTag();
     }
 

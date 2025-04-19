@@ -75,27 +75,27 @@ public class StoryService {
         return storyRepository.searchStories(city, query).stream().map(StoryResponse::new).collect(Collectors.toList());
     }
 
-    public List<StoryDTO> getListStoryByAuthor(Long id) {
+    public List<StoryResponse> getListStoryByAuthor(Long id) {
         return storyRepository.findByAuthorId(id).stream()
-                .map(StoryDTO::new).toList();
+                .map(StoryResponse::new).toList();
     }
 
-    public List<StoryDTO> getListMyStory() {
+    public List<StoryResponse> getListMyStory() {
         return storyRepository.findByAuthorId(userService.getCurrentUser().getId()).stream()
-                .map(StoryDTO::new).toList();
+                .map(StoryResponse::new).toList();
     }
 
-    public List<StoryDTO> getListStoryTag(Long id) {
+    public List<StoryResponse> getListStoryTag(Long id) {
         Optional<User> user = userRepository.findById(id);
-        return user.map(value -> storyRepository.findByAuthorId(value.getId()).stream()
-                .map(StoryDTO::new)
+        return user.map(value -> storyRepository.findByUsersTagId(value.getId()).stream()
+                .map(StoryResponse::new)
                 .collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
-    public List<StoryDTO> getListMyStoryTag() {
+    public List<StoryResponse> getListMyStoryTag() {
         Optional<User> user = userRepository.findById(userService.getCurrentUser().getId());
-        return user.map(value -> storyRepository.findByAuthorId(value.getId()).stream()
-                .map(StoryDTO::new)
+        return user.map(value -> storyRepository.findByUsersTagId(value.getId()).stream()
+                .map(StoryResponse::new)
                 .collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
