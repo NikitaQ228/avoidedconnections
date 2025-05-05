@@ -1,5 +1,7 @@
 package ru.avoidedconnections.services;
 
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.avoidedconnections.dto.*;
+import ru.avoidedconnections.repository.JwtBlacklistRepository;
 import ru.avoidedconnections.security.CustomUserDetails;
 import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.UserRepository;
@@ -16,17 +19,13 @@ import ru.avoidedconnections.security.jwt.JwtService;
 import javax.naming.AuthenticationException;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final JwtBlacklistRepository jwtBlacklistRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
-    }
 
     public JwtAuthenticationDTO signIn(UserCredentialsDTO userCredentialsDTO) throws AuthenticationException {
         User user = findByCredentials(userCredentialsDTO);
@@ -35,7 +34,7 @@ public class UserService {
 
     public JwtAuthenticationDTO refreshToken(RefreshTokenDTO refreshTokenDTO) throws AuthenticationException, UsernameNotFoundException {
         String refreshToken = refreshTokenDTO.getRefreshToken();
-        if (refreshToken != null && jwtService.validateJwtToken(refreshToken)) {
+        if (refreshToken != null && jwtService.validateJwtToken(refreshToken) && jwtBlacklistRepository.findByToken(refreshToken).isEmpty()) {
             User user = findByName(jwtService.getNameFromToken(refreshToken));
             return jwtService.refreshBaseToken(user.getName(), refreshToken);
         }

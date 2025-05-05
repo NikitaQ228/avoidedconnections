@@ -42,15 +42,18 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String token = getTokenFromRequest(request);
-        if (token != null && jwtService.validateJwtToken(token)) {
-            if (jwtBlacklistRepository.findByToken(token).isPresent()) {
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.getWriter().write("Token revoked");
-                response.getWriter().flush();
-                response.getWriter().close();
+        if (token != null) {
+            if (jwtService.validateJwtToken(token)) {
+                setCustomUserDetailsToSecurityContextHolder(token);
+            } else {
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
+                response.getWriter().write("Invalid or expired token");
                 return;
             }
-            setCustomUserDetailsToSecurityContextHolder(token);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
+            response.getWriter().write("Token is missing");
+            return;
         }
         filterChain.doFilter(request, response);
     }

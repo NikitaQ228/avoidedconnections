@@ -20,8 +20,14 @@ async function loadMainInfo({ city, query }) {
         headers: { "Authorization": "Bearer " + token }
     });
 
-    let result = await response.json();
+    if (response.status === 403) {
+        // Токен истёк или недействителен - пробуем обновить
+        const newToken = await refreshAccessToken();
+        if (!newToken) return; // если не удалось обновить - выход
+        loadMainInfo();
+    }
     if (response.ok) {
+        let result = await response.json();
         const container = document.querySelector('.posts-container');
         if (!container) return;
         if (result.length === 0) {

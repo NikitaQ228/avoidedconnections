@@ -20,13 +20,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ResponseEntity<String> handleException(AuthenticationException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Authentication Failed " + ex.getMessage());
-    }
+//    @ExceptionHandler(AuthenticationException.class)
+//    @ResponseStatus(HttpStatus.FORBIDDEN)
+//    public ResponseEntity<String> handleException(AuthenticationException ex) {
+//        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Authentication Failed " + ex.getMessage());
+//    }
 
-    @ExceptionHandler(javax.naming.AuthenticationException.class)
+    @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponse> handleGenericException(AuthenticationException ex) {
         ErrorResponse errorResponse = new ErrorResponse("UNAUTHORIZED", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);

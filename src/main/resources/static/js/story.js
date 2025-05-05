@@ -101,7 +101,12 @@ async function loadStoryInfo() {
     });
 
     let story = await response.json();
-
+    if (response.status === 403) {
+        // Токен истёк или недействителен - пробуем обновить
+        const newToken = await refreshAccessToken();
+        if (!newToken) return; // если не удалось обновить - выход
+        loadStoryInfo();
+    }
     if (response.ok) {
         populateStory(story);
         let response = await fetch("/story/" + id + "/comment", {
@@ -110,6 +115,12 @@ async function loadStoryInfo() {
 
         let comments = await response.json();
 
+        if (response.status === 403) {
+            // Токен истёк или недействителен - пробуем обновить
+            const newToken = await refreshAccessToken();
+            if (!newToken) return; // если не удалось обновить - выход
+            loadStoryInfo();
+        }
         if (response.ok) {
             const commentsContainer = document.querySelector('.comments');
             commentsContainer.innerHTML = ''
@@ -143,7 +154,7 @@ document.getElementById('comment-form').addEventListener('submit', async functio
     const id = params.get('id');
 
     try {
-        const response = await fetch("/story/" + id + "/addComment", {
+        let response = await fetch("/story/" + id + "/addComment", {
             method: 'POST',
             headers: {
                 "Content-Type": "text/plain",
@@ -152,6 +163,19 @@ document.getElementById('comment-form').addEventListener('submit', async functio
             body: commentText
         });
 
+        if (response.status === 403) {
+            // Токен истёк или недействителен - пробуем обновить
+            const newToken = await refreshAccessToken();
+            if (!newToken) return; // если не удалось обновить - выход
+            response = await fetch("/story/" + id + "/addComment", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "text/plain",
+                    "Authorization": "Bearer " + newToken
+                },
+                body: commentText
+            });
+        }
         if (response.ok) {
             const result = await response.json();
             addComment(result);

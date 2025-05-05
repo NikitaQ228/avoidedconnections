@@ -13,15 +13,27 @@ async function loadProfileInfo() {
         headers: { "Authorization": "Bearer " + token }
     });
 
-    let user = await response.json();
-
+    if (response.status === 403) {
+        // Токен истёк или недействителен - пробуем обновить
+        const newToken = await refreshAccessToken();
+        if (!newToken) return; // если не удалось обновить - выход
+        loadProfileInfo();
+    }
     if (response.ok) {
+        let user = await response.json();
         updateProfile(user)
 
         const url2 = id ? "/profile/story/" + id : "/profile/story";
         response = await fetch(url2, {
             headers: { "Authorization": "Bearer " + token }
         });
+
+        if (response.status === 403) {
+            // Токен истёк или недействителен - пробуем обновить
+            const newToken = await refreshAccessToken();
+            if (!newToken) return; // если не удалось обновить - выход
+            loadProfileInfo();
+        }
 
         let result = await response.json();
         const container1 = document.getElementById('posts-container1');
@@ -43,6 +55,13 @@ async function loadProfileInfo() {
         response = await fetch(url3, {
             headers: { "Authorization": "Bearer " + token }
         });
+
+        if (response.status === 403) {
+            // Токен истёк или недействителен - пробуем обновить
+            const newToken = await refreshAccessToken();
+            if (!newToken) return; // если не удалось обновить - выход
+            loadProfileInfo();
+        }
 
         result = await response.json();
         const container2 = document.getElementById('posts-container2');
@@ -168,7 +187,7 @@ async function handleChangePassword(event) {
     };
 
     let token = localStorage.getItem('accessToken');
-    const response = await fetch("/profile/changePassword", {
+    let response = await fetch("/profile/changePassword", {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -176,6 +195,20 @@ async function handleChangePassword(event) {
         },
         body: JSON.stringify(passwordData)
     });
+
+    if (response.status === 403) {
+        // Токен истёк или недействителен - пробуем обновить
+        const newToken = await refreshAccessToken();
+        if (!newToken) return; // если не удалось обновить - выход
+        response = await fetch("/profile/changePassword", {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + newToken
+            },
+            body: JSON.stringify(passwordData)
+        });
+    }
 
     if (response.ok) {
         alert('Пароль успешно изменён!');
@@ -211,7 +244,7 @@ avatarOptions.forEach(img => {
         avatarImg.src = img.src;
 
         let token = localStorage.getItem('accessToken');
-        const response = await fetch("/profile/changeIcon", {
+        let response = await fetch("/profile/changeIcon", {
             method: 'PUT',
             headers: {
                 "Content-Type": "text/plain",
@@ -219,10 +252,22 @@ avatarOptions.forEach(img => {
             },
             body: img.getAttribute('data-avatar')
         });
+        if (response.status === 403) {
+            // Токен истёк или недействителен - пробуем обновить
+            const newToken = await refreshAccessToken();
+            if (!newToken) return; // если не удалось обновить - выход
+            response = await fetch("/profile/changeIcon", {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "text/plain",
+                    "Authorization": "Bearer " + token
+                },
+                body: img.getAttribute('data-avatar')
+            });
+        }
         if (!response.ok) {
             console.error('Ошибка при изменении ватара:');
         }
-
         closeAvatarModal();
     });
 });
