@@ -1,4 +1,4 @@
-async function loadMainInfo({ city, query }) {
+async function loadMainInfo({ city, query } = {}) {
     let token = localStorage.getItem('accessToken');
     if (!token) {
         window.location.href = "/login";

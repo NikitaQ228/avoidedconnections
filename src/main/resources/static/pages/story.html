@@ -9,14 +9,16 @@
   <link rel="icon" href="img/ico.png">
 </head>
 <body>
-    <header>
-        <p class="site-title">Avoided Connections</p>
-        <!-- Справа навигация -->
-        <div class="header-right">
-          <a href="/profile" class="profile-link">Profile</a>
-          <button class="add-story-btn" type="button">+ add Story</button>
-        </div>
-      </header>
+<header>
+  <a href="/" class="site-title">Avoided Connections</a>
+
+  <!-- Справа навигация -->
+  <div class="header-right">
+    <a href="/profile" class="profile-link">Профиль</a>
+    <button class="logout-link" type="button">Выход</button>
+    <button class="add-story-btn" type="button">+ Story</button>
+  </div>
+</header>
 <div class="content">
   <article class="container" aria-label="story">
     <img
@@ -24,7 +26,9 @@
       class="story-image"
     />
 
-    <h1 class="title">Алкоголик</h1>
+    <div class="title-container">
+      <h1 class="title">Алкоголик</h1>
+    </div>
 
     <div class="author-info">
       Автор: <a href="https://example.com/authors/anna-ivanova" style="color:#e8e561; text-decoration:none;">Alex kl</a>
@@ -85,8 +89,9 @@
     <div>
       &copy; 2025 Самарский университет
     </div>
+    </div>
 </footer>
-<script src="/js/updateToken.js"></script>
+<script src="/js/default.js" type="module"></script>
 <script src="/js/story.js"></script>
 </body>
 </html>

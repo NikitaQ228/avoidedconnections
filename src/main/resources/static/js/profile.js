@@ -9,6 +9,19 @@ async function loadProfileInfo() {
     const id = params.get('id');
     const url1 = id ? "/profile/user/" + id : "/profile/user";
 
+    if (!id) {
+        const svg = document.querySelector('svg.settings-icon');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('onclick', 'openPasswordModal()');
+
+        // Создаем элемент <path>
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm7.43-2.5a7.93 7.93 0 0 0-.16-1.17l2.11-1.65-2-3.46-2.49 1a7.88 7.88 0 0 0-2.03-1.17l-.38-2.65h-4l-.38 2.65a7.88 7.88 0 0 0-2.03 1.17l-2.49-1-2 3.46 2.11 1.65a7.93 7.93 0 0 0-.16 1.17c0 .4.05.8.16 1.17l-2.11 1.65 2 3.46 2.49-1a7.88 7.88 0 0 0 2.03 1.17l.38 2.65h4l.38-2.65a7.88 7.88 0 0 0 2.03-1.17l2.49 1 2-3.46-2.11-1.65c.11-.37.16-.77.16-1.17z');
+
+        // Вставляем path внутрь svg
+        svg.appendChild(path);
+    }
+
     let response = await fetch(url1, {
         headers: { "Authorization": "Bearer " + token }
     });
@@ -230,7 +243,10 @@ const avatarOptions = avatarGrid.querySelectorAll('img');
 
 // Открыть модалку выбора аватара при клике на аватар
 document.querySelector('.avatar-wrapper').addEventListener('click', () => {
-    avatarModal.classList.add('active');
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get('id')) {
+        avatarModal.classList.add('active');
+    }
 });
 
 // Закрыть модалку выбора аватара

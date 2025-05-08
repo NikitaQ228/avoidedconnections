@@ -51,6 +51,20 @@ header {
 .profile-link:hover {
   background-color: #6d4807;
 }
+.logout-link {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.logout-link:hover {
+  background-color: #6d4807;
+}
 /* Кнопка добавления истории */
 .add-story-btn {
   background-color: #e67e22; /* оранжевый */

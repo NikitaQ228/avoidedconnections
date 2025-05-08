@@ -19,6 +19,10 @@ fistForm.addEventListener("submit", async function(event) {
     const password = document.getElementById('password11').value;
     const password2 = document.getElementById('password12').value;
 
+    if (!name || !password || !password2) {
+        alert('Заполните все поля!');
+        return;
+    }
     if (password != password2) {
         const errorMessageElement = document.getElementById('error-message1');
         errorMessageElement.textContent = 'Passwords don\'t match';
@@ -78,6 +82,10 @@ secondForm.addEventListener("submit", async function(event) {
     const name = encodeURIComponent(document.getElementById('name2').value);
     const password = encodeURIComponent(document.getElementById('password2').value);
 
+    if (!name || !password) {
+        alert('Заполните все поля!');
+        return;
+    }
     const userData = {
         name: name,
         password: password
