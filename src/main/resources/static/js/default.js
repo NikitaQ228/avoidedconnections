@@ -22,6 +22,8 @@ window.refreshAccessToken = async function() {
         });
 
         if (!response.ok) {
+            localStorage.removeItem('accessToken');
+            document.cookie = 'refreshToken=; Path=/; Secure; SameSite=Strict; Max-Age=0';
             window.location.href = "/login";
             alert('Сессия истекла. Пожалуйста, войдите снова');
             return null;
