@@ -86,6 +86,36 @@ function addComment(commentData) {
     commentsContainer.appendChild(comment);
 }
 
+function addDeleteIcon() {
+    // Находим контейнер с заголовком
+    const container = document.querySelector('.title-container');
+    if (!container) return;
+
+    // Проверяем, чтобы иконка не добавилась повторно
+    if (container.querySelector('.delete-icon')) return;
+
+    // Создаем SVG элемент с нужными атрибутами
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('class', 'delete-icon');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('role', 'button');
+    svg.setAttribute('tabindex', '0');
+    svg.setAttribute('title', 'Удалить историю');
+    svg.setAttribute('aria-label', 'Удалить историю');
+    svg.style.cursor = 'pointer';
+    svg.addEventListener('click', handleDeleteStory);
+
+    // Создаем path
+    const path = document.createElementNS(svgNS, 'path');
+    path.setAttribute('d', 'M3 6h18v2H3V6zm2 3h14l-1.5 12.5a1 1 0 0 1-1 .5H8a1 1 0 0 1-1-.5L5 9zm5-5h4v2h-4V4z');
+
+    svg.appendChild(path);
+
+    // Добавляем SVG в контейнер
+    container.appendChild(svg);
+}
+
 async function loadStoryInfo() {
     let token = localStorage.getItem('accessToken');
     if (!token) {
@@ -93,14 +123,27 @@ async function loadStoryInfo() {
         return;
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-
-    let response = await fetch("/story/" + id, {
+    let response = await fetch("/profile/user", {
         headers: { "Authorization": "Bearer " + token }
     });
 
-    let story = await response.json();
+    if (response.status === 403) {
+        // Токен истёк или недействителен - пробуем обновить
+        const newToken = await refreshAccessToken();
+        if (!newToken) return; // если не удалось обновить - выход
+        loadStoryInfo();
+        return;
+    }
+
+    let user = await response.json();
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    response = await fetch("/story/" + id, {
+        headers: { "Authorization": "Bearer " + token }
+    });
+
     if (response.status === 403) {
         // Токен истёк или недействителен - пробуем обновить
         const newToken = await refreshAccessToken();
@@ -108,8 +151,12 @@ async function loadStoryInfo() {
         loadStoryInfo();
     }
     if (response.ok) {
+        let story = await response.json();
+        if (user.id == story.author.id) {
+            addDeleteIcon();
+        }
         populateStory(story);
-        let response = await fetch("/story/" + id + "/comment", {
+        response = await fetch("/story/" + id + "/comment", {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -188,3 +235,43 @@ document.getElementById('comment-form').addEventListener('submit', async functio
         console.error('Ошибка при отправке комментария:', error);
     }
 });
+
+async function handleDeleteStory() {
+    if (!confirm('Вы уверены, что хотите удалить эту историю?')) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const token = localStorage.getItem('accessToken');
+    if (!id || !token) {
+        alert('Ошибка авторизации или отсутствует id истории.');
+        return;
+    }
+    try {
+        const response = await fetch("story/" + id + "/delete", {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (response.status === 403) {
+            // Токен истёк или недействителен - пробуем обновить
+            const newToken = await refreshAccessToken();
+            if (!newToken) return; // если не удалось обновить - выход
+            response = await fetch("story/" + id + "/delete", {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+        if (response.ok) {
+            alert('История успешно удалена.');
+            window.history.back();
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}

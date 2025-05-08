@@ -187,3 +187,27 @@ h1.title {
     margin-top: 4px;
   }
 }
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.delete-icon {
+  width: 32px;
+  height: 32px;
+  fill: white;
+  cursor: pointer;
+  transition: background-color 0.3s, fill 0.3s;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.delete-icon:hover,
+.delete-icon:focus {
+  background-color: #6d4807;
+  fill: #fff;
+  outline: none;
+}
+
