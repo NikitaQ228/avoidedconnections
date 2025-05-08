@@ -6,7 +6,8 @@
   <title>Avoided Connections</title>
   <link rel="stylesheet" href="/css/story.css"/>
   <link rel="stylesheet" href="/css/header&footer.css"/>
-  <link rel="icon" href="img/ico.png">
+  <link rel="stylesheet" href="/css/addStory.css"/>
+  <link rel="icon" href="/img/ico.png">
 </head>
 <body>
     <header>
@@ -14,13 +15,13 @@
         <!-- Справа навигация -->
         <div class="header-right">
           <a href="/profile" class="profile-link">Profile</a>
-          <button class="add-story-btn" type="button">+ add Story</button>
+          <button id="addStory" class="add-story-btn" type="button">+ add Story</button>
         </div>
       </header>
 <div class="content">
   <article class="container" aria-label="story">
     <img
-      src="img/img.jpg"
+      src="/img/img.jpg"
       class="story-image"
     />
 
@@ -50,7 +51,7 @@
       <div class="comment">
         <a href="/profile?1" target="_blank" rel="noopener noreferrer">
           <img
-            src="img/1.png"
+            src="/img/1.png"
             class="user-icon"
           />
         </a>
@@ -75,6 +76,44 @@
     </section>
   </article>
 </div>
+<div id="myModal" class="modal modal-addStory">
+  <div class="modal-content modal-content-addStory">
+    <span id="closeModal" class="close">&times;</span>
+    <h2>Добавить историю</h2>
+    <form id="addStoryForm" onsubmit="return addStoryFun(event)" enctype="multipart/form-data">
+      <label for="storyTitle">Заголовок</label>
+      <input type="text" id="storyTitle" required autocomplete="off"/>
+
+      <label for="storyCity">Город</label>
+      <input type="text" id="storyCity" required autocomplete="off"/>
+
+      <label for="storyText">Описание</label>
+      <input type="text" id="storyText" required autocomplete="off"/>
+
+      <!-- Поле для добавления изображения -->
+      <label for="storyImage">Изображение</label>
+      <input type="file" id="storyImage" name="storyImage" accept="image/*" />
+      <div id="imagePreview" class="image-preview"></div>
+      <input type="hidden" id="hiddenImageUrl" name="imageUrl" />
+
+      <!-- Блок для тегов пользователей -->
+      <div class="form-group">
+        <label for="userTagInput">Отметить пользователей:</label>
+        <div class="tag-input-container">
+          <div class="selected-tags" id="selectedTags">
+            <!-- Сюда будут добавляться теги -->
+          </div>
+          <input type="text" id="userTagInput" class="tag-input" placeholder="Начните вводить имя пользователя..." autocomplete="off">
+          <div class="dropdown-menu" id="userDropdown"></div>
+        </div>
+        <!-- Скрытое поле для хранения ID выбранных пользователей -->
+        <div id="selectedUsersContainer"></div>
+      </div>
+
+      <button type="submit">Отправить историю</button>
+    </form>
+  </div>
+</div>
 <footer>
     <div>
       <div>
@@ -88,5 +127,6 @@
 </footer>
 <script src="/js/updateToken.js"></script>
 <script src="/js/story.js"></script>
+<script src="js/addStory.js"></script>
 </body>
 </html>

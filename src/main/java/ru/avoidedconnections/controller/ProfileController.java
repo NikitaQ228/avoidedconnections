@@ -31,6 +31,11 @@ public class ProfileController {
         return userService.getUserInfo();
     }
 
+    @GetMapping("/users")
+    public List<UserDTO> profileUsers() {
+        return userService.getAllUsers();
+    }
+
     @GetMapping("/story/{userId}")
     public List<StoryResponse> getStoriesByAuthor(@PathVariable(name = "userId") Long userId) {
         return storyService.getListStoryByAuthor(userId);

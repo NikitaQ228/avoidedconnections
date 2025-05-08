@@ -17,7 +17,9 @@ import ru.avoidedconnections.repository.UserRepository;
 import ru.avoidedconnections.security.jwt.JwtService;
 
 import javax.naming.AuthenticationException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -107,5 +109,9 @@ public class UserService {
             return ResponseEntity.ok(HttpStatus.OK);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream().map(UserDTO::new).collect(Collectors.toList());
     }
 }

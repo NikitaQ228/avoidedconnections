@@ -1,0 +1,134 @@
+.modal-addStory {
+    display: none;           /* Скрыто по умолчанию */
+    position: fixed;         /* Фиксированная позиция */
+    z-index: 1;              /* На переднем плане */
+    left: 0;
+    top: 0;
+    width: 100%;             /* На всю ширину */
+    height: 100%;            /* На всю высоту */
+    /*overflow: auto;          !* Прокручивание если нужно *!*/
+}
+
+.modal-content-addStory {
+    margin: 5% auto;        /* Отступ сверху и центрирование */
+    padding: 20px;
+    overflow: auto;          /* Прокручивание если нужно */
+    width: 80%;              /* Ширина окна */
+    height: 80%;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+
+.tag-input-container {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag {
+    background-color: #500101;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.tag-remove {
+    margin-left: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tag-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 5px;
+    min-width: 100px;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.dropdown-item {
+    background-color: #361c1c;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #500101;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.image-upload-container {
+    margin-bottom: 15px;
+}
+
+.image-input {
+    margin-bottom: 10px;
+}
+
+.image-preview {
+    display: none;
+    max-width: 100%;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+}
