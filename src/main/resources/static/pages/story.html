@@ -73,7 +73,8 @@
 
       <form class="comment-form" id = "comment-form">
         <h3>Оставить комментарий</h3>
-        <textarea id="comment-text" name="comment-text" rows="4" placeholder="Напишите ваш комментарий..." required></textarea>
+        <label for="comment-text">
+        </label><textarea id="comment-text" name="comment-text" rows="4" placeholder="Напишите ваш комментарий..." required></textarea>
 
         <button type="submit">Отправить</button>
       </form>
@@ -92,7 +93,7 @@
       <input type="text" id="storyCity" required autocomplete="off"/>
 
       <label for="storyText">Описание</label>
-      <input type="text" id="storyText" required autocomplete="off"/>
+      <textarea id="storyText" required autocomplete="off"></textarea>
 
       <!-- Поле для добавления изображения -->
       <label for="storyImage">Изображение</label>
