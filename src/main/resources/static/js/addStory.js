@@ -2,7 +2,8 @@
 var modal = document.getElementById("myModal");
 var addStory = document.getElementById("addStory");
 var span = document.getElementById("closeModal");
-
+// Получаем форму внутри модального окна
+var form = modal.querySelector("form"); // Замените на правильный селектор для вашей формы
 
 // Открыть модальное окно
 addStory.onclick = function() {
@@ -14,6 +15,11 @@ addStory.onclick = function() {
 span.onclick = function() {
     modal.style.display = "none";
     history.back();
+
+    // Сбрасываем форму
+    if (form) {
+        form.reset();
+    }
 }
 
 // Закрыть окно по клику вне окна
@@ -21,6 +27,11 @@ window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = "none";
         history.back();
+
+        // Сбрасываем форму
+        if (form) {
+            form.reset();
+        }
     }
 }
 
