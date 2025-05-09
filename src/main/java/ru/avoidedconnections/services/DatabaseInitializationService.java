@@ -40,44 +40,67 @@ public class DatabaseInitializationService {
         userService.addUser(new User("user5", "pass5"));
         //Добавление историй
         String sql = "INSERT INTO public.story (id, date, user_id, head, city, img, text) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        ClassPathResource resource = new ClassPathResource("static/img/metro1.jpg");
+        byte[] imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 1, Timestamp.valueOf("2024-03-10 08:15:00"), 1, "Агрессивный попрошайка", "Москва",
-                Files.readAllBytes(Paths.get(uploadPath + "metro1.jpg")),
+                imageBytes,
                 "Метро Курская, вагон 5. Мужик лет 50 с бутылкой требует деньги, хватает за руки. Будьте осторожны!");
+
+        resource = new ClassPathResource("static/img/bus42.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 2, Timestamp.valueOf("2024-03-11 18:30:00"), 2, "Пьяная компания в автобусе", "Санкт-Петербург",
-                Files.readAllBytes(Paths.get(uploadPath + "bus42.jpg")),
+                imageBytes,
                 "Маршрут 42, кричали и бросали банки. Двое в камуфляжных штанах.");
 
+        resource = new ClassPathResource("static/img/scam.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 3, Timestamp.valueOf("2024-03-12 12:00:00"), 3, "Лже-волонтер", "Екатеринбург",
-                Files.readAllBytes(Paths.get(uploadPath + "scam.jpg")),
+                imageBytes,
                 "У ТЦ \"Гринвич\" собирает деньги на несуществующий приют. Проверяйте документы!");
 
+        resource = new ClassPathResource("static/img/park.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 4, Timestamp.valueOf("2024-02-28 20:45:00"), 4, "Наркоман у детской площадки", "Казань",
-                Files.readAllBytes(Paths.get(uploadPath + "park.jpg")),
+                imageBytes,
                 "Сидит возле горки, что-то колет шприцом. Вызвали полицию.");
 
+        resource = new ClassPathResource("static/img/train.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 5, Timestamp.valueOf("2024-03-01 07:15:00"), 5, "Воришка в электричке", "Нижний Новгород",
-                Files.readAllBytes(Paths.get(uploadPath + "train.jpg")),
+                imageBytes,
                 "Курсирует между Дзержинском и НН. Крадет телефоны у спящих.");
 
+        resource = new ClassPathResource("static/img/scam2.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 6, Timestamp.valueOf("2024-03-05 09:00:00"), 1, "Мошенник с \"упавшими деньгами\"", "Новосибирск",
-                Files.readAllBytes(Paths.get(uploadPath + "scam2.jpg")),
+                imageBytes,
                 "Возле вокзала пытается развести на деньги по старой схеме.");
 
+        resource = new ClassPathResource("static/img/gopniki.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 7, Timestamp.valueOf("2024-03-08 22:10:00"), 2, "Гопники у метро Пушкинская", "Ростов-на-Дону",
-                Files.readAllBytes(Paths.get(uploadPath + "gopniki.jpg")),
+                imageBytes,
                 "Требуют \"покурить\", преследуют до остановки.");
 
+        resource = new ClassPathResource("static/img/park_night.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 8, Timestamp.valueOf("2024-03-09 15:30:00"), 3, "Бомж с ножом в парке", "Сочи",
-                Files.readAllBytes(Paths.get(uploadPath + "park_night.jpg")),
+                imageBytes,
                 "Спит на лавочке, при приближении достает перочинный нож.");
 
-        jdbcTemplate.update(sql, 9, Timestamp.valueOf("2024-02-25 19:20:00"), 4, "Навязчивый гадалка", "Владивосток",
-                Files.readAllBytes(Paths.get(uploadPath + "witch.jpg")),
+        resource = new ClassPathResource("static/img/witch.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
+        jdbcTemplate.update(sql, 9, Timestamp.valueOf("2024-02-25 19:20:00"), 4, "Навязчивая гадалка", "Владивосток",
+                imageBytes,
                 "У центрального рынка хватает за руки, пугает \"проклятиями\".");
 
+        resource = new ClassPathResource("static/img/minibus.jpg");
+        imageBytes = FileCopyUtils.copyToByteArray(resource.getInputStream());
         jdbcTemplate.update(sql, 10, Timestamp.valueOf("2024-03-07 11:45:00"), 5, "Пьяный водитель маршрутки", "Калининград",
-                Files.readAllBytes(Paths.get(uploadPath + "minibus.jpg")),
+                imageBytes,
                 "Маршрут 145, ехал зигзагами, орал песни. Номера А123ВС 39 RUS.");
+
         executeSqlScript("script.sql");
     }
 

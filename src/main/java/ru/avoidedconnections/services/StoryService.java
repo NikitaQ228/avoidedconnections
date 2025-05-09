@@ -24,8 +24,6 @@ public class StoryService {
     private final UserService userService;
     private final UserRepository userRepository;
 
-    @Value("${upload.path}")
-    private String uploadPath;
 
     public StoryService(StoryRepository storyRepository, UserService userService, UserRepository userRepository) {
         this.storyRepository = storyRepository;
