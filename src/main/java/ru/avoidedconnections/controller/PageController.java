@@ -24,10 +24,4 @@ public class PageController {
     public String getStoryPage() {
         return "/pages/story.html";
     }
-
-//    @GetMapping("/addStory")
-//    public String getAddStoryPage() {
-//        return "/pages/addstory.html";
-//    }
-
 }

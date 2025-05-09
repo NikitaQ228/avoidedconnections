@@ -22,7 +22,7 @@ async function loadProfileInfo() {
         svg.appendChild(path);
     }
 
-    let response = await fetch(url1, {
+    let response = await fetch("http://localhost:8080" + url1, {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -37,7 +37,7 @@ async function loadProfileInfo() {
         updateProfile(user)
 
         const url2 = id ? "/profile/story/" + id : "/profile/story";
-        response = await fetch(url2, {
+        response = await fetch("http://localhost:8080" + url2, {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -65,7 +65,7 @@ async function loadProfileInfo() {
 
         const url3 = id ? "/profile/storyTag/" + id : "/profile/storyTag";
 
-        response = await fetch(url3, {
+        response = await fetch("http://localhost:8080" + url3, {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -129,7 +129,7 @@ function createStory(postData, container) {
     article.className = 'post-card';
 
     const imgElem = document.createElement('img');
-    imgElem.src = '/story/image/' + id;
+    imgElem.src = 'http://localhost:8080/story/image/' + id;
     imgElem.className = 'post-image';
     imgElem.alt = head;
 
@@ -200,7 +200,7 @@ async function handleChangePassword(event) {
     };
 
     let token = localStorage.getItem('accessToken');
-    let response = await fetch("/profile/changePassword", {
+    let response = await fetch("http://localhost:8080/profile/changePassword", {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -213,7 +213,7 @@ async function handleChangePassword(event) {
         // Токен истёк или недействителен - пробуем обновить
         const newToken = await refreshAccessToken();
         if (!newToken) return; // если не удалось обновить - выход
-        response = await fetch("/profile/changePassword", {
+        response = await fetch("http://localhost:8080/profile/changePassword", {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -260,7 +260,7 @@ avatarOptions.forEach(img => {
         avatarImg.src = img.src;
 
         let token = localStorage.getItem('accessToken');
-        let response = await fetch("/profile/changeIcon", {
+        let response = await fetch("http://localhost:8080/profile/changeIcon", {
             method: 'PUT',
             headers: {
                 "Content-Type": "text/plain",
@@ -272,7 +272,7 @@ avatarOptions.forEach(img => {
             // Токен истёк или недействителен - пробуем обновить
             const newToken = await refreshAccessToken();
             if (!newToken) return; // если не удалось обновить - выход
-            response = await fetch("/profile/changeIcon", {
+            response = await fetch("http://localhost:8080/profile/changeIcon", {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "text/plain",

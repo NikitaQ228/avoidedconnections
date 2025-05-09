@@ -6,7 +6,7 @@ function populateStory(data) {
     const tags = document.querySelector('.tags');
     const storyText = document.querySelector('.story-text');
 
-    storyImage.src = '/story/image/' + data.id;
+    storyImage.src = 'http://localhost:8080/story/image/' + data.id;
     title.textContent = data.head;
 
     authorInfo.innerHTML = `Автор: <a href="/profile?id=${data.author.id}" style="color:#e8e561; text-decoration:none;">${data.author.name}</a>`;
@@ -123,7 +123,7 @@ async function loadStoryInfo() {
         return;
     }
 
-    let response = await fetch("/profile/user", {
+    let response = await fetch("http://localhost:8080/profile/user", {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -140,7 +140,7 @@ async function loadStoryInfo() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    response = await fetch("/story/" + id, {
+    response = await fetch("http://localhost:8080/story/" + id, {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -156,7 +156,7 @@ async function loadStoryInfo() {
             addDeleteIcon();
         }
         populateStory(story);
-        response = await fetch("/story/" + id + "/comment", {
+        response = await fetch("http://localhost:8080/story/" + id + "/comment", {
             headers: { "Authorization": "Bearer " + token }
         });
 
@@ -201,7 +201,7 @@ document.getElementById('comment-form').addEventListener('submit', async functio
     const id = params.get('id');
 
     try {
-        let response = await fetch("/story/" + id + "/addComment", {
+        let response = await fetch("http://localhost:8080/story/" + id + "/addComment", {
             method: 'POST',
             headers: {
                 "Content-Type": "text/plain",
@@ -214,7 +214,7 @@ document.getElementById('comment-form').addEventListener('submit', async functio
             // Токен истёк или недействителен - пробуем обновить
             const newToken = await refreshAccessToken();
             if (!newToken) return; // если не удалось обновить - выход
-            response = await fetch("/story/" + id + "/addComment", {
+            response = await fetch("http://localhost:8080/story/" + id + "/addComment", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "text/plain",
@@ -247,7 +247,7 @@ async function handleDeleteStory() {
         return;
     }
     try {
-        const response = await fetch("story/" + id + "/delete", {
+        const response = await fetch("http://localhost:8080/story/" + id + "/delete", {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -259,7 +259,7 @@ async function handleDeleteStory() {
             // Токен истёк или недействителен - пробуем обновить
             const newToken = await refreshAccessToken();
             if (!newToken) return; // если не удалось обновить - выход
-            response = await fetch("story/" + id + "/delete", {
+            response = await fetch("http://localhost:8080/story/" + id + "/delete", {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

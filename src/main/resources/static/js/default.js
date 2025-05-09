@@ -13,7 +13,7 @@ window.refreshAccessToken = async function() {
         return null;
     }
     try {
-        const response = await fetch('/auth/refresh', {
+        const response = await fetch('http://localhost:8080/auth/refresh', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 window.location.href = "/login";
                 return null;
             }
-            const response = await fetch('/auth/logout', {
+            const response = await fetch('http://localhost:8080/auth/logout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'text/plain'

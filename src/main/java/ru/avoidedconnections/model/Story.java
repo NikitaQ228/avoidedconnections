@@ -34,7 +34,7 @@ public class Story {
     @Column(name = "date", nullable = false)
     private Date date;
 
-    @Column(name = "city")
+    @Column(name = "city", length = 30)
     private String city;
 
     @ManyToOne

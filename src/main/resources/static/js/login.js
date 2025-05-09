@@ -34,7 +34,7 @@ fistForm.addEventListener("submit", async function(event) {
         };
 
         try {
-            const response = await fetch('/auth/signUp', {
+            const response = await fetch('http://localhost:8080/auth/signUp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ fistForm.addEventListener("submit", async function(event) {
 
             if (response.status === 201) {
                 try {
-                    const response = await fetch('/auth/signIn', {
+                    const response = await fetch('http://localhost:8080/auth/signIn', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ secondForm.addEventListener("submit", async function(event) {
     };
 
     try {
-        const response = await fetch('/auth/signIn', {
+        const response = await fetch('http://localhost:8080/auth/signIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

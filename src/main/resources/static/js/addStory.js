@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
         userInput.placeholder = "Загрузка пользователей...";
         userInput.disabled = true;
 
-        fetch('/profile/users')
+        fetch('http://localhost:8080/profile/users')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Ошибка загрузки пользователей: ' + response.status);
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Для больших списков лучше выполнить поиск на сервере
-        return fetch(`/users/search?query=${encodeURIComponent(query)}`)
+        return fetch(`http://localhost:8080/users/search?query=${encodeURIComponent(query)}`)
             .then(response => response.json())
             .then(data => {
                 // Обработка ответа в зависимости от API
@@ -334,7 +334,7 @@ async function addStoryFun(event) {
     }
 
     // Отправляем данные на сервер
-    fetch('/addStory/new', {
+    fetch('http://localhost:8080/addStory/new', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

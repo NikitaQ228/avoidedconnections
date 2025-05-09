@@ -16,7 +16,7 @@ async function loadMainInfo({ city, query } = {}) {
     const url_str = url.pathname + url.search;
     console.log(url_str);
 
-    let response = await fetch(url_str, {
+    let response = await fetch("http://localhost:8080" + url_str, {
         headers: { "Authorization": "Bearer " + token }
     });
 
@@ -63,7 +63,7 @@ function createStory(postData) {
     article.className = 'post-card';
 
     const imgElem = document.createElement('img');
-    imgElem.src = '/story/image/' + id;
+    imgElem.src = 'http://localhost:8080/story/image/' + id;
     imgElem.className = 'post-image';
     imgElem.alt = head;
 

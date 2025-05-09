@@ -27,9 +27,6 @@ public class DatabaseInitializationService {
     @Autowired
     private UserService userService;
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     @PostConstruct
     public void initDatabase() throws IOException {
         if (!userService.addUser(new User("user1", "pass1")))

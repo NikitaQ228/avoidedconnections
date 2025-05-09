@@ -16,6 +16,7 @@ services:
       - ./uploads:/app/uploads
     ports:
       - "127.0.0.1:5433:5432"
+
   app:
     restart: always
     build: .
@@ -26,3 +27,12 @@ services:
     environment:
       SPRING_DATASOURCE_URL: "jdbc:postgresql://avoid_db:5432/postgres"
       JAVA_OPTIONS: "-Xmx512M"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - app
