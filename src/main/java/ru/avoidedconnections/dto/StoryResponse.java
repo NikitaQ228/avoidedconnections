@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class StoryResponse {
     private Long id;
     private String head;
-    private String img;
     private String text;
     private Date date;
     private String city;
@@ -21,7 +20,6 @@ public class StoryResponse {
     public StoryResponse(Story story) {
         this.id = story.getId();
         this.head = story.getHead();
-        this.img = story.getImg();
         this.text = story.getText();
         this.date = story.getDate();
         this.city = story.getCity();

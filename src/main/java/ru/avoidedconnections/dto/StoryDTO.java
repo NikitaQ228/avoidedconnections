@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class StoryDTO {
     private Long id;
     private String head;
-    private String img;
+    private byte[] img;
     private String text;
     private Date date;
     private String city;

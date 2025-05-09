@@ -1,5 +1,4 @@
 /* Иконка настроек */
-/* Иконка настроек */
 .settings-icon {
     position: absolute;
     top: 25px;
@@ -14,7 +13,7 @@
     fill: #b98a1d;
 }
 
-/* Модальное окно смены пароля */
+/* Общие стили для модальных окон */
 .modal {
     display: none;
     position: fixed;
@@ -23,84 +22,15 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.7);
+    z-index: 1000;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
 }
+
 .modal.active {
     display: flex;
 }
-.modal-content {
-    background-color: #222;
-    padding: 25px;
-    border-radius: 8px;
-    width: 320px;
-    box-shadow: 0 0 15px #b9951d;
-    color: #eee;
-    position: relative;
-}
-.modal-content h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-weight: 700;
-    font-size: 1.5rem;
-    text-align: center;
-}
-.modal-content label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
-}
-.modal-content input[type="password"] {
-    width: 100%;
-    padding: 8px 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    border: none;
-    font-size: 1rem;
-    background-color: #333;
-    color: #eee;
-}
-.modal-content button {
-    width: 100%;
-    padding: 10px;
-    background-color: #b9951d;
-    border: none;
-    border-radius: 5px;
-    color: #121212;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-.modal-content button:hover {
-    background-color: #a47a17;
-}
-.modal-close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #eee;
-    cursor: pointer;
-    user-select: none;
-}
-/* Модальные окна */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-.modal.active {
-    display: flex;
-}
+
 /* Контент модального окна */
 .modal-content {
     background-color: #222;
@@ -111,6 +41,7 @@
     color: #eee;
     position: relative;
 }
+
 .modal-content h2 {
     margin-top: 0;
     margin-bottom: 15px;
@@ -118,7 +49,8 @@
     font-size: 1.5rem;
     text-align: center;
 }
-.modal-close {
+
+.close, .modal-close {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -129,42 +61,155 @@
     user-select: none;
 }
 
-
-
-.modal-addStory {
-    display: none;           /* Скрыто по умолчанию */
-    position: fixed;         /* Фиксированная позиция */
-    z-index: 1;              /* На переднем плане */
-    left: 0;
-    top: 0;
-    width: 100%;             /* На всю ширину */
-    height: 100%;            /* На всю высоту */
-    /*overflow: auto;          !* Прокручивание если нужно *!*/
-}
-
-.modal-content-addStory {
-    margin: 5% auto;        /* Отступ сверху и центрирование */
-    padding: 20px;
-    overflow: auto;          /* Прокручивание если нужно */
-    width: 80%;              /* Ширина окна */
-    height: 80%;
-    position: relative;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-weight: bold;
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 24px;
-}
 .close:hover,
-.close:focus {
-    color: #000;
+.close:focus,
+.modal-close:hover,
+.modal-close:focus {
+    color: #b98f1d;
     text-decoration: none;
+}
+
+/* Стили для формы */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #b9951d;
+}
+
+/* Оформление всех текстовых полей */
+.modal-content input[type="text"],
+.modal-content input[type="password"],
+.modal-content input[type="email"],
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    font-size: 1rem;
+    background-color: #333;
+    color: #eee;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+/* Фокус поля */
+.modal-content input[type="text"]:focus,
+.modal-content input[type="password"]:focus,
+.modal-content input[type="email"]:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+    border-color: #b9951d;
+    outline: none;
+    box-shadow: 0 0 5px rgba(185, 149, 29, 0.5);
+    background-color: #282828;
+}
+
+/* Стилизация textarea отдельно */
+.modal-content textarea {
+    min-height: 70px;
+    max-height: 250px;
+    line-height: 1.4;
+}
+
+/* Placeholder */
+.modal-content ::placeholder {
+    color: #aaa;
+    opacity: 1; /* Для Firefox */
+    font-size: 0.98em;
+}
+
+/* Файл-инпут */
+.modal-content input[type="file"] {
+    width: 100%;
+    padding: 8px 0;
+    margin-bottom: 15px;
+    color: #eee;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.modal-content input[type="file"]::file-selector-button {
+    background-color: #444;
+    color: #eee;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.modal-content input[type="file"]::file-selector-button:hover {
+    background-color: #b9951d;
+    color: #222;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 12px;
+    background-color: #b9951d;
+    border: none;
+    border-radius: 5px;
+    color: #121212;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.modal-content button:hover {
+    background-color: #a47a17;
+}
+
+/* Специфичные стили для модального окна добавления истории */
+.modal-content-addStory {
+    margin: 5% auto;
+    width: 80%;
+    height: 80%;
+    max-width: 800px;
+    overflow: auto;
+}
+
+#storyText {
+    width: 100%;                /* Задаем на всю ширину контейнера */
+    min-height: 70px;
+    max-height: 300px;
+    resize: none;               /* Отключаем ручное изменение размера */
+    line-height: 1.4;
+    overflow-y: auto;
+    box-sizing: border-box;     /* Чтобы padding не добавлял к ширине */
+    display: block;             /* Делаем блочным элементом */
+    white-space: pre-wrap;      /* Чтобы текст переносился */
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    font-size: 1rem;
+    background-color: #333;
+    color: #eee;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#storyText:focus {
+    border-color: #b9951d;
+    outline: none;
+    box-shadow: 0 0 5px rgba(185, 149, 29, 0.5);
+    background-color: #282828;
 }
 
 
@@ -242,26 +287,4 @@
     height: 24px;
     border-radius: 50%;
     margin-right: 10px;
-}
-
-.image-upload-container {
-    margin-bottom: 15px;
-}
-
-.image-input {
-    margin-bottom: 10px;
-}
-
-.image-preview {
-    display: none;
-    max-width: 100%;
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    padding: 5px;
-    border-radius: 4px;
-}
-
-.image-preview img {
-    max-width: 100%;
-    height: auto;
 }

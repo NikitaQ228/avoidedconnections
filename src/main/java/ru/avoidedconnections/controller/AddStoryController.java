@@ -16,13 +16,8 @@ public class AddStoryController {
     private final StoryService storyService;
 
     @PostMapping("/new")
-    public ResponseEntity<StoryDTO> createStory(@RequestBody StoryDTO storyDTO) {
+    public ResponseEntity<Long> createStory(@RequestBody StoryDTO storyDTO) {
         return new ResponseEntity<>(storyService.addStory(storyDTO), HttpStatus.CREATED);
-    }
-
-    @PostMapping("/uploadImage")
-    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile image) {
-        return storyService.uploadImage(image);
     }
 
 }

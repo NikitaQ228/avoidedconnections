@@ -26,7 +26,7 @@ public class Story {
     private String head;
 
     @Column(name = "img")
-    private String img;
+    private byte[] img;
 
     @Column(name = "text", columnDefinition = "TEXT")
     private String text;

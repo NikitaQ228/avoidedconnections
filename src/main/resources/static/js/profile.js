@@ -111,7 +111,7 @@ function updateProfile(data) {
 }
 
 function createStory(postData, container) {
-    const { id, head, img, text, date, city } = postData;
+    const { id, head, text, date, city } = postData;
 
     // Форматируем дату для атрибута datetime и для отображения
     const dateObj = new Date(date);
@@ -129,7 +129,7 @@ function createStory(postData, container) {
     article.className = 'post-card';
 
     const imgElem = document.createElement('img');
-    imgElem.src = '/img/' + img;
+    imgElem.src = '/story/image/' + id;
     imgElem.className = 'post-image';
     imgElem.alt = head;
 

@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").anonymous()
-                        .requestMatchers("/auth/**", "/", "/profile", "/story", "/addStory").permitAll()
+                        .requestMatchers("/auth/**", "/", "/profile", "/story", "/story/image/**").permitAll()
                         .requestMatchers("/pages/**", "/js/**", "/css/**", "/img/**").permitAll()
                         .requestMatchers("/**").permitAll()  //authenticated()
                 )

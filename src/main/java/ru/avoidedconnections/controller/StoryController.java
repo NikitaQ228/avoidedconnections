@@ -37,6 +37,11 @@ public class StoryController {
         return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
 
+    @GetMapping("/image/{id}")
+    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
+        return storyService.getImage(id);
+    }
+
     @DeleteMapping("/{storyId}/delete")
     public StoryDTO storyDelete(@PathVariable(name = "storyId") Long storyId) {
         return storyService.deleteStory(storyId);

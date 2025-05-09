@@ -1,14 +1,10 @@
 package ru.avoidedconnections.services;
 
 import org.hibernate.ObjectNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.multipart.MultipartFile;
 import ru.avoidedconnections.dto.StoryDTO;
 import ru.avoidedconnections.dto.StoryResponse;
 import ru.avoidedconnections.model.Story;
@@ -16,17 +12,11 @@ import ru.avoidedconnections.model.User;
 import ru.avoidedconnections.repository.StoryRepository;
 import ru.avoidedconnections.repository.UserRepository;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StoryService {
@@ -50,7 +40,7 @@ public class StoryService {
         return storyDTO;
     }
 
-    public StoryDTO addStory(StoryDTO storyDTO)  {
+    public Long addStory(StoryDTO storyDTO)  {
         Story story = new Story(
                 storyDTO.getId(),
                 storyDTO.getHead(),
@@ -62,7 +52,7 @@ public class StoryService {
                 storyDTO.getUsersTag().stream().map(x -> userService.getUserByName(x.getName())).collect(Collectors.toList())
         );
         storyRepository.save(story);
-        return new StoryDTO(story);
+        return story.getId();
     }
 
     public Story getStoryById(Long id) {
@@ -99,17 +89,14 @@ public class StoryService {
                 .collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
-    public ResponseEntity<String> uploadImage(MultipartFile image) {
-        try {
-            if (image.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The file is empty");
-            }
+    public ResponseEntity<byte[]> getImage(Long id) {
+        // Получаем историю по id
+        Optional<Story> optionalStory = storyRepository.findById(id);
 
-            Path path = Paths.get(uploadPath + image.getOriginalFilename());
-            Files.write(path, image.getBytes());
-            return ResponseEntity.ok(image.getOriginalFilename());
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error when uploading a file: " + e.getMessage());
+        if (optionalStory.isEmpty() || optionalStory.get().getImg() == null) {
+            return ResponseEntity.notFound().build();
         }
+        byte[] image = optionalStory.get().getImg();
+        return new ResponseEntity<>(image, HttpStatus.OK);
     }
 }

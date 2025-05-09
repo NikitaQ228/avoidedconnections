@@ -6,7 +6,7 @@ function populateStory(data) {
     const tags = document.querySelector('.tags');
     const storyText = document.querySelector('.story-text');
 
-    storyImage.src = `img/${data.img}`;
+    storyImage.src = '/story/image/' + data.id;
     title.textContent = data.head;
 
     authorInfo.innerHTML = `Автор: <a href="/profile?id=${data.author.id}" style="color:#e8e561; text-decoration:none;">${data.author.name}</a>`;
