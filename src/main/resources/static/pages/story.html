@@ -81,16 +81,17 @@
     </section>
   </article>
 </div>
+
 <div id="myModal" class="modal modal-addStory">
   <div class="modal-content modal-content-addStory">
     <span id="closeModal" class="close">&times;</span>
     <h2>Добавить историю</h2>
     <form id="addStoryForm" onsubmit="return addStoryFun(event)" enctype="multipart/form-data">
       <label for="storyTitle">Заголовок</label>
-      <input type="text" id="storyTitle" required autocomplete="off"/>
+      <input type="text" id="storyTitle" required autocomplete="off" maxlength="30"/>
 
       <label for="storyCity">Город</label>
-      <input type="text" id="storyCity" required autocomplete="off"/>
+      <input type="text" id="storyCity" required autocomplete="off" maxlength="20"/>
 
       <label for="storyText">Описание</label>
       <textarea id="storyText" required autocomplete="off"></textarea>
@@ -119,6 +120,7 @@
     </form>
   </div>
 </div>
+
 <footer>
     <div>
       <div>

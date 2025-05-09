@@ -8,13 +8,13 @@ var form = modal.querySelector("form"); // Замените на правиль�
 // Открыть модальное окно
 addStory.onclick = function () {
     modal.style.display = "block";
-    history.pushState(null, null, 'addStory');
+    // history.pushState(null, null, 'addStory');
 }
 
 // Закрыть окно по клику на "крестик"
 span.onclick = function () {
     modal.style.display = "none";
-    history.back();
+    // history.back();
 
     // Сбрасываем форму
     if (form) {
@@ -26,7 +26,7 @@ span.onclick = function () {
 window.onclick = function (event) {
     if (event.target === modal) {
         modal.style.display = "none";
-        history.back();
+        // history.back();
 
         // Сбрасываем форму
         if (form) {
@@ -359,6 +359,7 @@ async function addStoryFun(event) {
             document.getElementById('selectedTags').innerHTML = '';
             document.getElementById('selectedUsersContainer').innerHTML = '';
             alert('История успешно создана!');
+            window.location.href = '/profile';
         });
 
     // Возвращаем false, чтобы форма не отправлялась
