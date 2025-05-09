@@ -1,3 +1,136 @@
+/* Иконка настроек */
+/* Иконка настроек */
+.settings-icon {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    fill: #eee;
+    transition: fill 0.3s;
+}
+.settings-icon:hover {
+    fill: #b98a1d;
+}
+
+/* Модальное окно смены пароля */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal.active {
+    display: flex;
+}
+.modal-content {
+    background-color: #222;
+    padding: 25px;
+    border-radius: 8px;
+    width: 320px;
+    box-shadow: 0 0 15px #b9951d;
+    color: #eee;
+    position: relative;
+}
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.modal-content label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+.modal-content input[type="password"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    background-color: #333;
+    color: #eee;
+}
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #b9951d;
+    border: none;
+    border-radius: 5px;
+    color: #121212;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.modal-content button:hover {
+    background-color: #a47a17;
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #eee;
+    cursor: pointer;
+    user-select: none;
+}
+/* Модальные окна */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal.active {
+    display: flex;
+}
+/* Контент модального окна */
+.modal-content {
+    background-color: #222;
+    padding: 25px;
+    border-radius: 10px;
+    width: 320px;
+    box-shadow: 0 0 15px #b98f1d;
+    color: #eee;
+    position: relative;
+}
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-align: center;
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #eee;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+
 .modal-addStory {
     display: none;           /* Скрыто по умолчанию */
     position: fixed;         /* Фиксированная позиция */
