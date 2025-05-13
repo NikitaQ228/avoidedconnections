@@ -39,7 +39,7 @@ Cсылка на отчеты: https://docs.google.com/document/d/12-FoXGP6h6zwi
     - `user_id` (Foreign Key к таблице User)
     - `usersTag` (Foreign Key к связующей таблице users_tag)
     - `head` (Заголовок)
-    - `img` (Ссылка на рисунок)
+    - `img` (Изображение)
     - `text` (Текст истории)
     - `date` (Дата)
     - `city` (Город истории)
